@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono:regular,bold');
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -39,4 +41,35 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.counter {
+  margin: 1em;
+}
+
+.password {
+}
+
+.passwords {
+  list-style-type: none;
+  text-align: left;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: bold;
+  color: pink;
+}
+
+.symbol {
+  color: dodgerblue;
+}
+
+.int {
+  color: lightyellow;
+}
+
+.lower {
+  color: grey;
+}
+
+.upper {
+  color: lightpink;
 }
