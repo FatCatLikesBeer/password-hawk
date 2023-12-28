@@ -1,3 +1,4 @@
+import generateWord from './assets/wordGenerator.tsx'
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css'
@@ -16,14 +17,21 @@ function App() {
     return <li className="password" key={e}>{e}</li>
   });
 
-  const lchars = <span className="lower">goodbye</span>
+  const lchars = <span className="lower">goodbye</span>;
   const ints = <span className="int">123987</span>;
   const symbols = <span className="symbol">_+)</span>;
   const uchars = <span className="upper">HELLO</span>;
   const newPasswordsList = fouxPasswordsAsList.push(<li className='password' key="nothing">{lchars}{ints}{symbols}{uchars}</li>);
 
+  const test1: string = generateWord(Math.floor(Math.random() * 6) + 2, false);
+  const test2: string = generateWord(Math.floor(Math.random() * 6) + 2, true);
+
   return (
     <>
+      {test1}
+      <br />
+      {test2}
+      <br />
       <Header />
       <div className="card">
         <ul className="passwords">
