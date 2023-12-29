@@ -73,7 +73,6 @@ const three: array = [
 "ASH",
 "ASK",
 "ASP",
-"ASS",
 "ATE",
 "ATS",
 "ATT",
