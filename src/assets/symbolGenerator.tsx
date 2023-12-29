@@ -5,7 +5,6 @@ function generateSymbol(any: any) {
   const selector: number = Math.floor(Math.random() * ceiling)
   result = options[selector];
 
-  result = <span className="symbol">{result}</span>
   return result
 }
 

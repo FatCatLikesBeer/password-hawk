@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import generateSymbol from './assets/symbolGenerator.tsx'
 import generateWord from './assets/wordGenerator.tsx'
 import generateNumber from './assets/numberGenerator.tsx'
@@ -6,6 +7,11 @@ import viteLogo from '/vite.svg';
 import './App.css'
 
 function App() {
+  const [passwordLength, setPasswordLength] = useState(20);
+  const [passwordCase, setPasswordCase] = useState("mixed");
+  const [passwordSymbol, setPasswordSymbol] = useState(null);
+  const [password, setPassword] = useState(["2", "place", "-", "3", "HOLDER"]);
+
   const Header = () => {
     return (<h1>Password Hawk</h1>);
   }
@@ -19,24 +25,50 @@ function App() {
     return <li className="password" key={e}>{e}</li>
   });
 
-  const lchars = <span className="lower">goodbye</span>;
-  const ints = <span className="int">123987</span>;
-  const symbols = <span className="symbol">_+)</span>;
-  const uchars = <span className="upper">HELLO</span>;
-  const newPasswordsList = fouxPasswordsAsList.push(<li className='password' key="nothing">{lchars}{ints}{symbols}{uchars}</li>);
+  // Generates a password and set it to state
+  const generateAndSet = () => {
+    let result = [];
+    let symbol = generateSymbol();
+    result.push(generateNumber());
+    result.push(generateWord(4, true));
+    result.push(symbol);
+    result.push(generateNumber());
+    result.push(generateWord(5, false));
+    result.push(symbol);
+    result.push(generateNumber());
+    result.push(generateWord(6, true));
+    setPassword(result);
+  }
 
-  const testw1: string = generateWord(Math.floor(Math.random() * 6) + 2, false);
-  const testw2: string = generateWord(Math.floor(Math.random() * 6) + 2, true);
-  const testn1: number = generateNumber();
-  const testn2: number = generateNumber();
-  const tests1: string = generateSymbol();
-  const tests2: string = generateSymbol();
+  // The button that calls the generator
+  const GeneratorButton = () => {
+    return (
+      <>
+        <button onClick={generateAndSet}>Make Password</button>
+      </>
+    )
+  }
+
+  // Parses the password state variable into a 
+  // a list of decorated HTML elements.
+  const passwordList = password.map((e) => {
+    let result;
+    if (e.length >= 2) {
+      if (e[0] === e[0].toUpperCase()) {
+        result = <span className="upper">{e}</span>;
+      } else {
+        result = <span className="lower">{e}</span>;
+      }
+    } else if (!isNaN(Number(e))) {
+      result = <span className="int">{e}</span>;
+    } else {
+      result = <span className="symbol">{e}</span>;
+    };
+    return result;
+  });
 
   return (
     <>
-      {testn1}{testw1}{tests1}{testn2}{testw2}
-      <br />
-      
       <br />
       <Header />
       <div className="card">
@@ -44,6 +76,10 @@ function App() {
           {fouxPasswordsAsList}
         </ul>
       </div>
+      <span className="passwords" id="password">{passwordList}</span>
+      <br />
+      <br />
+      <GeneratorButton />
       <div style={{ textAlign: "left" }}>
         <h2>Tips for good passwords</h2>
         <p>

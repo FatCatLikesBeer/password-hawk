@@ -45,9 +45,9 @@ const generateWord = (length, lowercase) => {
   }
 
   lowercase ?
-    result = <span className="lower">{randomizer(source).toLowerCase()}</span>
+    result = randomizer(source).toLowerCase()
     :
-    result = <span className="upper">{randomizer(source)}</span>
+    result = randomizer(source)
 
   return result;
 }
