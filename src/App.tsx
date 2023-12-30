@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import Switch from '@mui/material/Switch'
+import RandomPassword from './components/RandomPassword'
 import generateSymbol from './assets/symbolGenerator.tsx'
 import generateWord from './assets/wordGenerator.tsx'
 import generateNumber from './assets/numberGenerator.tsx'
@@ -12,18 +14,19 @@ function App() {
   const [passwordSymbol, setPasswordSymbol] = useState(null);
   const [password, setPassword] = useState(["2", "place", "-", "3", "HOLDER"]);
 
+  const Toggle = () => {
+    return (
+      <>
+        <p>Structured Passphrase</p>
+        <Switch label="hello" size="large" />
+        <p>Randomized Password</p>
+      </>
+    );
+  }
+
   const Header = () => {
     return (<h1>Password Hawk</h1>);
   }
-
-  const fouxPasswordsAsArray = [
-    "2vite-3react-6SPEAKER",
-    "8jqJ8!jl)--Lu8sSeRffe"
-  ];
-
-  const fouxPasswordsAsList = fouxPasswordsAsArray.map((e) => {
-    return <li className="password" key={e}>{e}</li>
-  });
 
   // Generates a password and set it to state
   const generateAndSet = () => {
@@ -67,19 +70,25 @@ function App() {
     return result;
   });
 
+  const StructuredPassword = () => {
+    return (
+      <>
+        <h2>Structured Password:</h2>
+        <span className="passwords" id="password">{passwordList}</span>
+        <br />
+        <br />
+        <GeneratorButton />
+      </>
+    )
+  }
+
   return (
     <>
+      <Toggle />
       <br />
       <Header />
-      <div className="card">
-        <ul className="passwords">
-          {fouxPasswordsAsList}
-        </ul>
-      </div>
-      <span className="passwords" id="password">{passwordList}</span>
-      <br />
-      <br />
-      <GeneratorButton />
+      <StructuredPassword />
+      <RandomPassword />
       <div style={{ textAlign: "left" }}>
         <h2>Tips for good passwords</h2>
         <p>
