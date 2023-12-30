@@ -4,6 +4,7 @@ import RandomPassword from './components/RandomPassword'
 import generateSymbol from './assets/symbolGenerator.tsx'
 import generateWord from './assets/wordGenerator.tsx'
 import generateNumber from './assets/numberGenerator.tsx'
+import {structuredParser} from './assets/passwordParser.tsx'
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css'
@@ -54,21 +55,7 @@ function App() {
 
   // Parses the password state variable into a 
   // a list of decorated HTML elements.
-  const passwordList = password.map((e) => {
-    let result;
-    if (e.length >= 2) {
-      if (e[0] === e[0].toUpperCase()) {
-        result = <span className="upper">{e}</span>;
-      } else {
-        result = <span className="lower">{e}</span>;
-      }
-    } else if (!isNaN(Number(e))) {
-      result = <span className="int">{e}</span>;
-    } else {
-      result = <span className="symbol">{e}</span>;
-    };
-    return result;
-  });
+  const passwordList = structuredParser(password);
 
   const StructuredPassword = () => {
     return (

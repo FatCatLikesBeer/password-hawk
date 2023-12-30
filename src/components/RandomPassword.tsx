@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import {unstructuredParser} from '../assets/passwordParser.tsx'
 
 export default function RandomPassword() {
   const [minLength, maxLength] = [15, 35];
@@ -32,6 +33,7 @@ export default function RandomPassword() {
     setPassword(result);
   }
 
+  // Generates a password on page load
   useEffect(() => {
     onClick();
   }, []);
@@ -43,35 +45,19 @@ export default function RandomPassword() {
 
   // Parses the password state variable into a 
   // a list of decorated HTML elements.
-  const passwordList = password.map((e) => {
-    function isLetterOrSymbol(char) {
-      return /^[a-zA-Z]$/.test(char);
-    }
-    let result;
-    if (isLetterOrSymbol(e)) {
-      if (e[0] === e[0].toUpperCase()) {
-        result = <span className="upper">{e}</span>;
-      } else {
-        result = <span className="lower">{e}</span>;
-      }
-    } else if (!isNaN(Number(e))) {
-      result = <span className="int">{e}</span>;
-    } else {
-      result = <span className="symbol">{e}</span>;
-    };
-    return result;
-  });
+  const passwordList = unstructuredParser(password);
 
+  // Component which displays the password itself
   const PasswordDisplay = () => {
     return <span className="passwords">{passwordList}</span>
   }
 
-  // Return Password length
+  // Component: Return Password length
   const DisplayLength = () => {
     return <p>Password Length: {passwordLength}</p>
   }
 
-  // Password Length Buttons
+  // Component: Password Length Buttons
   const LengthButtons = () => {
     const makeLonger = () => {
       if (passwordLength < maxLength) {
