@@ -5,6 +5,7 @@ import four from '../assets/4_letter_words.tsx'
 import five from '../assets/5_letter_words.tsx'
 import six from '../assets/6_letter_words.tsx'
 import seven from '../assets/7_letter_words.tsx'
+import eight from '../assets/8_letter_words.tsx'
 
 // This accepts an array, generates a random value based on the 
 // lenght of the array, and returns a random element from that array.
@@ -38,6 +39,9 @@ const generateWord = (length, lowercase) => {
       break;
     case 7:
       source = seven;
+      break;
+    case 8:
+      source = eight;
       break;
     default:
       console.log(length);

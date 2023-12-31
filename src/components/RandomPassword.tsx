@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import {unstructuredParser} from '../assets/passwordParser.tsx'
+import { unstructuredParser } from '../assets/passwordParser.tsx'
 
 export default function RandomPassword() {
   const [minLength, maxLength] = [15, 35];
@@ -9,18 +9,18 @@ export default function RandomPassword() {
   // List of characters
   const characters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "?"]
 
-  // Title
+  // Title Component
   const Title = () => {
     return <h2>Random Password:</h2>
   }
 
   // Password Generator
   const passwordGenerator = () => {
-    const preResult = () => {
+    const resultUncased = () => {
       const selector = Math.floor(Math.random() * characters.length);
       return characters[selector];
     }
-    const result = Math.random() > .5 ? preResult().toUpperCase() : preResult()
+    const result = Math.random() > .5 ? resultUncased().toUpperCase() : resultUncased()
     return result;
   }
 
@@ -47,7 +47,7 @@ export default function RandomPassword() {
   // a list of decorated HTML elements.
   const passwordList = unstructuredParser(password);
 
-  // Component which displays the password itself
+  // Component: Displays the password itself
   const PasswordDisplay = () => {
     return <span className="passwords">{passwordList}</span>
   }
@@ -87,7 +87,6 @@ export default function RandomPassword() {
     <>
       <br />
       <Title />
-      <br />
       <PasswordDisplay />
       <DisplayLength />
       <br />

@@ -18,7 +18,7 @@ export const structuredParser = (source) => {
     }
     return result
   })
-  return fullResult
+  return fullResult;
 }
 
 // Parser for the secondary, randomized password
