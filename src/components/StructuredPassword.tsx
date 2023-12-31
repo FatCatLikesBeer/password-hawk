@@ -1,12 +1,20 @@
 import { useState, useEffect } from 'react'
-import { structuredParser } from '../assets/passwordParser.tsx'
+import { unstructuredParser } from '../assets/passwordParser.tsx'
+import ModificationSwitch from './ModificationSwitch.tsx'
+import Switch from '@mui/material/Switch'
+import Typography from '@mui/material/Typography'
+import Stack from '@mui/material/Stack'
 import generateSymbol from '../assets/symbolGenerator.tsx'
 import generateWord from '../assets/wordGenerator.tsx'
 import generateNumber from '../assets/numberGenerator.tsx'
+import generateCombo from '../assets/comboGenerator.tsx'
 
 // Structured Password Component
 export default function StructuredPassword() {
   const [password, setPassword] = useState(["2", "place", "-", "3", "HOLDER"]);
+  const [useSymbols, setUseSymbols] = useState(true);
+  const [useNumbers, setUseNumbers] = useState(true);
+  const [useMixed, setUseMixed] = useState(true);
 
   // Generates a password and set it to state
   const generateAndSet = () => {
@@ -20,6 +28,8 @@ export default function StructuredPassword() {
     result.push(symbol);
     result.push(generateNumber());
     result.push(generateWord(6, true));
+    result.push(symbol);
+    result.push(generateCombo(8, false));
     setPassword(result);
   }
 
@@ -30,7 +40,7 @@ export default function StructuredPassword() {
 
   // Parses the password state variable into a 
   // a list of decorated HTML elements.
-  const passwordList = structuredParser(password);
+  const passwordList = unstructuredParser(password);
   const passwordWord = password.join("")
 
   // The button that calls the generator
@@ -50,6 +60,9 @@ export default function StructuredPassword() {
       <br />
       <br />
       <GeneratorButton />
+      <ModificationSwitch title={"Symbols"} setState={setUseSymbols} state={useSymbols} />
+      <ModificationSwitch title={"Numbers"} setState={setUseNumbers} state={useNumbers} />
+      <ModificationSwitch title={"Upper Case"} setState={setUseMixed} state={useMixed} />
     </>
   )
 }
