@@ -57,6 +57,7 @@
   font-weight: bold;
   color: pink;
   font-size: 30pt;
+  word-wrap: break-word;
 }
 
 .symbol {
