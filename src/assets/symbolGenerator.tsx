@@ -1,4 +1,4 @@
-function generateSymbol(any: any) {
+function generateSymbol() {
   let result: string;
   const options: array = ["=", "+", "-", "_", "!", "#", "$", "^", "&", "|", "@"];
   const ceiling: number = options.length;
