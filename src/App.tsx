@@ -33,17 +33,10 @@ function App() {
   }
 
   // Main Password Component
-  const MainComponent = () => {
-    return (
-      <>
-        {checked ? <StructuredPassword /> : <RandomPassword />}
-      </>
-    )
-  }
+  const MainComponent = () => { return <> {checked ? <StructuredPassword /> : <RandomPassword />} </> }
 
   return (
     <>
-      <br />
       <Header />
       <Toggle />
       <MainComponent />

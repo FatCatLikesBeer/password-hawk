@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { unstructuredParser } from '../assets/passwordParser.tsx'
-import Box from '@mui/materialui/Box'
-import Typography from '@mui/materialui/Typography'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
 import Slider from '@mui/material/Slider'
 import ModificationSwitch from './ModificationSwitch.tsx'
@@ -79,11 +79,6 @@ export default function RandomPassword() {
     return <span className="passwords">{passwordList}</span>
   }
 
-  // Component: Returns user selected password length
-  const DisplayLength = () => {
-    return <p>Password Length: {passwordLength}</p>
-  }
-
   // Takes the value of the slider and modifies the passwordLength value
   const handleSliderChange = (event, newValue) => {
     setPasswordLength(newValue);
@@ -101,15 +96,17 @@ export default function RandomPassword() {
 
   return (
     <>
-      <br />
+      <Box sx={{ width: 700, textAlign: "center"}}>
       <Title />
       <PasswordDisplay />
-      <DisplayLength />
       <br />
       <br />
-      <Clipboard data-clipboard-text={passwordWord}>Copy to Clipboard</Clipboard>
-      <Button />
+      <Box sx={{ width: 230, textAlign: "left" }}>
+        <Clipboard data-clipboard-text={passwordWord}>Copy to Clipboard</Clipboard>
+        <Button />
+        <p style={{ textAlign: "left" }}>Number of Characters: {passwordLength}</p>
         <Slider
+          track={false}
           value={passwordLength}
           onChange={handleSliderChange}
           aria-label="Number Of Words"
@@ -120,10 +117,12 @@ export default function RandomPassword() {
           min={minLength}
           max={maxLength}
         />
-      <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
-      <ModificationSwitch title={"Use Symbols"} setState={setUseSymbols} state={useSymbols} />
-      <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixedCase} state={useMixedCase} />
-      <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
+        <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
+        <ModificationSwitch title={"Use Symbols"} setState={setUseSymbols} state={useSymbols} />
+        <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixedCase} state={useMixedCase} />
+        <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
+      </Box>
+      </Box>
     </>
   )
 }

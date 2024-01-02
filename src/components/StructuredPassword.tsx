@@ -19,7 +19,7 @@ import generateCombo from '../assets/comboGenerator.tsx'
 // Structured Password Component
 export default function StructuredPassword() {
   const [password, setPassword] = useState(["2", "place", "-", "3", "HOLDER"]);
-  const [numberOfWords, setNumberOfWord] = useState(3);
+  const [numberOfWords, setNumberOfWord] = useState(5);
   const [useSymbols, setUseSymbols] = useState("-");
   const [useNumbers, setUseNumbers] = useState(true);
   const [useMixed, setUseMixed] = useState(true);
@@ -92,55 +92,56 @@ export default function StructuredPassword() {
     generateAndSet();
   }, [useSymbols, useNumbers, useMixed, numberOfWords]);
 
-    return (
+  return (
     <>
       <h2>Structured Password:</h2>
       <Box sx={{ width: 700, textAlign: "center"}}>
-      <Box sx={{ width: 500, textAlign: "left" }}>
-        <span className="passwords" id="password" style={{ color: "grey !important" }}>{passwordList}</span>
-      </Box>
-      <Box sx={{ width: 200, textAlign: "center" }}>
-        <GeneratorButton />
-        <Clipboard data-clipboard-text={passwordWord}>Copy to Clipboard</Clipboard>
-        <p>Password Length: {passwordWord.length}</p>
-        <Slider
-          value={numberOfWords}
-          onChange={handleSliderChange}
-          aria-label="Number Of Words"
-          defaultValue={numberOfWords}
-          valueLabelDisplay="auto"
-          step={1}
-          marks
-          min={3}
-          max={15}
-        />
-        <FormControl sx={{ width: 170 }}>
-          <InputLabel id="select-symbol-label">Symbol</InputLabel>
-          <Select
-            labelId="select-symbol-label"
-            id="select-symbol"
-            value={useSymbols}
-            label="Symbol"
-            onChange={handleSymbolChange}
-          >
-            <MenuItem value={"-"}>-</MenuItem>
-            <MenuItem value={"_"}>_</MenuItem>
-            <MenuItem value={"+"}>+</MenuItem>
-            <MenuItem value={"&"}>&</MenuItem>
-            <MenuItem value={"!"}>!</MenuItem>
-            <MenuItem value={"#"}>#</MenuItem>
-            <MenuItem value={"$"}>$</MenuItem>
-            <MenuItem value={"^"}>^</MenuItem>
-            <MenuItem value={"|"}>|</MenuItem>
-            <MenuItem value={"@"}>@</MenuItem>
-            <MenuItem value={"random"}>Random Symbol</MenuItem>
-            <MenuItem value={"none"}>No Symbol</MenuItem>
-          </Select>
-        </FormControl>
-        <ModificationSwitch title={"Prefix numbers onto words"} setState={setUseNumbers} state={useNumbers} />
-        <ModificationSwitch title={"Mixed case results"} setState={setUseMixed} state={useMixed} />
-        <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
-      </Box>
+        <Box sx={{ width: 500, textAlign: "left" }}>
+          <span className="passwords" id="password" style={{ color: "grey !important" }}>{passwordList}</span>
+        </Box>
+        <Box sx={{ width: 230, textAlign: "left" }}>
+          <GeneratorButton />
+          <Clipboard data-clipboard-text={passwordWord}>Copy to Clipboard</Clipboard>
+          <p style={{ textAlign: "left" }}>Number of Words: {numberOfWords}</p>
+          <Slider
+            track={false}
+            value={numberOfWords}
+            onChange={handleSliderChange}
+            aria-label="Number Of Words"
+            defaultValue={numberOfWords}
+            valueLabelDisplay="auto"
+            step={1}
+            marks
+            min={3}
+            max={15}
+          />
+          <FormControl sx={{ width: 170 }}>
+            <InputLabel id="select-symbol-label">Symbol</InputLabel>
+            <Select
+              labelId="select-symbol-label"
+              id="select-symbol"
+              value={useSymbols}
+              label="Symbol"
+              onChange={handleSymbolChange}
+            >
+              <MenuItem value={"-"}>-</MenuItem>
+              <MenuItem value={"_"}>_</MenuItem>
+              <MenuItem value={"+"}>+</MenuItem>
+              <MenuItem value={"&"}>&</MenuItem>
+              <MenuItem value={"!"}>!</MenuItem>
+              <MenuItem value={"#"}>#</MenuItem>
+              <MenuItem value={"$"}>$</MenuItem>
+              <MenuItem value={"^"}>^</MenuItem>
+              <MenuItem value={"|"}>|</MenuItem>
+              <MenuItem value={"@"}>@</MenuItem>
+              <MenuItem value={"random"}>Random Symbol</MenuItem>
+              <MenuItem value={"none"}>No Symbol</MenuItem>
+            </Select>
+          </FormControl>
+          <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
+          <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixed} state={useMixed} />
+          <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
+        </Box>
       </Box>
     </>
   )
