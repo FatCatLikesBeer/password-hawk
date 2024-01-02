@@ -90,7 +90,6 @@ export default function StructuredPassword() {
   // Run generator on page load
   useEffect(() => {
     generateAndSet();
-    console.log(passwordWord);
   }, [useSymbols, useNumbers, useMixed, numberOfWords]);
 
     return (
@@ -140,7 +139,7 @@ export default function StructuredPassword() {
         </FormControl>
         <ModificationSwitch title={"Prefix numbers onto words"} setState={setUseNumbers} state={useNumbers} />
         <ModificationSwitch title={"Mixed case results"} setState={setUseMixed} state={useMixed} />
-        <ModificationSwitch title={"Colorize Results"} setState={setUseColor} state={useColor} />
+        <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
       </Box>
       </Box>
     </>
