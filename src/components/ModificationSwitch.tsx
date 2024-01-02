@@ -15,7 +15,7 @@ export default function ModificationSwitch(props) {
           onChange={onChange}
           size="large"
         />
-        <Typography>{props.title}</Typography>
+        <p>{props.title}</p>
       </Stack>
     </>
   )

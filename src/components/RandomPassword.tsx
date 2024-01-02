@@ -1,10 +1,17 @@
 import { useState, useEffect } from 'react'
 import { unstructuredParser } from '../assets/passwordParser.tsx'
+import Box from '@mui/materialui/Box'
+import Typography from '@mui/materialui/Typography'
+import Stack from '@mui/material/Stack'
+import Slider from '@mui/material/Slider'
+import ModificationSwitch from './ModificationSwitch.tsx'
+import Clipboard from 'react-clipboard.js'
 
 export default function RandomPassword() {
   const [minLength, maxLength] = [15, 35];
   const [password, setPassword] = useState([]);
   const [passwordLength, setPasswordLength] = useState(minLength)
+  const [useColor, setUseColor] = useState(true);
 
   // List of characters
   const characters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "?"]
@@ -45,7 +52,11 @@ export default function RandomPassword() {
 
   // Parses the password state variable into a 
   // a list of decorated HTML elements.
-  const passwordList = unstructuredParser(password);
+  const passwordList = unstructuredParser(password, useColor);
+
+  // Turns the password useState object (which exists as a list)
+  // into a string
+  const passwordWord = password.join("")
 
   // Component: Displays the password itself
   const PasswordDisplay = () => {
@@ -91,8 +102,10 @@ export default function RandomPassword() {
       <DisplayLength />
       <br />
       <br />
+      <Clipboard data-clipboard-text={passwordWord}>Copy to Clipboard</Clipboard>
       <Button />
       <LengthButtons />
+      <ModificationSwitch title={"Colorize Results"} setState={setUseColor} state={useColor} />
     </>
   )
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Switch from '@mui/material/Switch'
+import Box from '@mui/material/Box'
 import StructuredPassword from './components/StructuredPassword.tsx'
 import RandomPassword from './components/RandomPassword'
 import reactLogo from './assets/react.svg';
@@ -11,8 +12,13 @@ function App() {
   const [passwordCase, setPasswordCase] = useState("mixed");
   const [passwordSymbol, setPasswordSymbol] = useState(null);
   const [checked, setChecked] = useState(true);
+  //
+  // Header
+  const Header = () => {
+    return (<h1>Password Hawk</h1>);
+  }
 
-  // Toggle Component
+  // Toggle between Structured and Unstructured Password Generator
   const Toggle = () => {
     const toggleLogic = () => {
       setChecked(!checked);
@@ -24,11 +30,6 @@ function App() {
         size="large"
       />
     );
-  }
-
-  // Header
-  const Header = () => {
-    return (<h1>Password Hawk</h1>);
   }
 
   // Main Password Component
