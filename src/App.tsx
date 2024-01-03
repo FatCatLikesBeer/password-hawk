@@ -11,7 +11,7 @@ function App() {
   const [passwordCase, setPasswordCase] = useState("mixed");
   const [passwordSymbol, setPasswordSymbol] = useState(null);
   const [checked, setChecked] = useState(true);
-  //
+  
   // Header
   const Header = () => {
     return (<h1 style={{paddingBottom: 15}}>Password Hawk</h1>);
