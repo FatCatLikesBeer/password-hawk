@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 import Switch from '@mui/material/Switch'
 import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 import StructuredPassword from './components/StructuredPassword.tsx'
 import RandomPassword from './components/RandomPassword'
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './App.css'
 
 function App() {
@@ -15,7 +14,7 @@ function App() {
   //
   // Header
   const Header = () => {
-    return (<h1>Password Hawk</h1>);
+    return (<h1 style={{paddingBottom: 15}}>Password Hawk</h1>);
   }
 
   // Toggle between Structured and Unstructured Password Generator
@@ -24,11 +23,15 @@ function App() {
       setChecked(!checked);
     }
     return (
-      <Switch
-        checked={checked}
-        onChange={toggleLogic}
-        size="large"
-      />
+      <div style={{ paddingBottom: 20 }}>
+        Random Password
+        <Switch
+          checked={checked}
+          onChange={toggleLogic}
+          size="large"
+        />
+        Structured Passphrase
+      </div>
     );
   }
 
@@ -52,10 +55,10 @@ function App() {
         <br />
         <br />
         <br />
-        <p className="read-the-docs">
+        <p className="copy">
           This app was inspired by <a target="blank" href="https://www.passwordwolf.com">Password Wolf</a> and motivated by:
         </p>
-        <ul className="read-the-docs" style={{ textAlign: "left" }}>
+        <ul className="copy" style={{ textAlign: "left" }}>
           <li>A need for a portfolio piece</li>
           <li>A desire to excercise React</li>
           <li>A desire to learn TypeScript</li>

@@ -2,14 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { structuredParser } from '../assets/passwordParser.tsx'
 import ModificationSwitch from './ModificationSwitch.tsx'
 import Switch from '@mui/material/Switch'
-import Typography from '@mui/material/Typography'
-import Stack from '@mui/material/Stack'
 import Slider from '@mui/material/Slider'
-import Box from '@mui/material/Box'
-import Select from '@mui/material/Select'
-import MenuItem from '@mui/material/MenuItem'
-import InputLabel from '@mui/material/InputLabel'
-import FormControl from '@mui/material/FormControl'
 import Clipboard from 'react-clipboard.js'
 import generateSymbol from '../assets/symbolGenerator.tsx'
 import generateWord from '../assets/wordGenerator.tsx'
@@ -18,6 +11,7 @@ import generateCombo from '../assets/comboGenerator.tsx'
 
 // Structured Password Component
 export default function StructuredPassword() {
+  const [minLength, maxLength] = [3, 25];
   const [password, setPassword] = useState(["2", "place", "-", "3", "HOLDER"]);
   const [numberOfWords, setNumberOfWord] = useState(5);
   const [useSymbols, setUseSymbols] = useState("-");
@@ -72,7 +66,7 @@ export default function StructuredPassword() {
   const GeneratorButton = () => {
     return (
       <>
-        <button onClick={generateAndSet}>Make Password</button>
+        <button className="button" onClick={generateAndSet}>Make Password</button>
       </>
     );
   }
@@ -93,56 +87,62 @@ export default function StructuredPassword() {
   }, [useSymbols, useNumbers, useMixed, numberOfWords]);
 
   return (
-    <>
-      <h2>Structured Password:</h2>
-      <Box sx={{ width: 700, textAlign: "center"}}>
-        <Box sx={{ width: 500, textAlign: "left" }}>
-          <span className="passwords" id="password" style={{ color: "grey !important" }}>{passwordList}</span>
-        </Box>
-        <Box sx={{ width: 230, textAlign: "left" }}>
+    <div className="mainContainer">
+      <div className="options">
+        <div className="containerTitle">Options</div>
           <GeneratorButton />
           <Clipboard data-clipboard-text={passwordWord}>Copy to Clipboard</Clipboard>
-          <p style={{ textAlign: "left" }}>Number of Words: {numberOfWords}</p>
-          <Slider
-            track={false}
-            value={numberOfWords}
-            onChange={handleSliderChange}
-            aria-label="Number Of Words"
-            defaultValue={numberOfWords}
-            valueLabelDisplay="auto"
-            step={1}
-            marks
-            min={3}
-            max={15}
-          />
-          <FormControl sx={{ width: 170 }}>
-            <InputLabel id="select-symbol-label">Symbol</InputLabel>
-            <Select
-              labelId="select-symbol-label"
-              id="select-symbol"
+        <br />
+        <br />
+        <div>
+          <div className="slider">
+            Number of Words ↓
+            <Slider
+              track={false}
+              value={numberOfWords}
+              onChange={handleSliderChange}
+              aria-label="Number Of Words"
+              valueLabelDisplay="auto"
+              style={{ width: 180 }}
+              step={1}
+              marks
+              min={minLength}
+              max={maxLength}
+            />
+          </div>
+          <div className="separator">
+            Separator Symbol ↓
+            <select
+              title="Symbol"
               value={useSymbols}
-              label="Symbol"
               onChange={handleSymbolChange}
+              style={{ width: 180 }}
             >
-              <MenuItem value={"-"}>-</MenuItem>
-              <MenuItem value={"_"}>_</MenuItem>
-              <MenuItem value={"+"}>+</MenuItem>
-              <MenuItem value={"&"}>&</MenuItem>
-              <MenuItem value={"!"}>!</MenuItem>
-              <MenuItem value={"#"}>#</MenuItem>
-              <MenuItem value={"$"}>$</MenuItem>
-              <MenuItem value={"^"}>^</MenuItem>
-              <MenuItem value={"|"}>|</MenuItem>
-              <MenuItem value={"@"}>@</MenuItem>
-              <MenuItem value={"random"}>Random Symbol</MenuItem>
-              <MenuItem value={"none"}>No Symbol</MenuItem>
-            </Select>
-          </FormControl>
-          <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
-          <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixed} state={useMixed} />
-          <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
-        </Box>
-      </Box>
-    </>
-  )
+              <option value={"-"}>-</option>
+              <option value={"_"}>_</option>
+              <option value={"+"}>+</option>
+              <option value={"&"}>&</option>
+              <option value={"!"}>!</option>
+              <option value={"#"}>#</option>
+              <option value={"$"}>$</option>
+              <option value={"^"}>^</option>
+              <option value={"|"}>|</option>
+              <option value={"@"}>@</option>
+              <option value={"random"}>Random Symbol</option>
+              <option value={"none"}>No Symbol</option>
+            </select>
+          </div>
+        <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
+        <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixed} state={useMixed} />
+        <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
+      </div>
+      </div>
+      <div className="resultContainer">
+        <div className="containerTitle">Result</div>
+        <div className="result">
+          <span className="passwords" id="password">{passwordList}</span>
+        </div>
+      </div>
+    </div>
+  );
 }

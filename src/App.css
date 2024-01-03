@@ -7,55 +7,13 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-.counter {
-  margin: 1em;
-}
-
-#password span{
+button {
+  margin: 0px 0px 5px;
 }
 
 .passwords {
-  list-style-type: none;
-  text-align: left;
   font-family: 'IBM Plex Mono', monospace;
   font-weight: bold;
-  color: pink;
   font-size: 20pt;
   word-wrap: break-word;
 }
@@ -74,4 +32,78 @@
 
 .upper {
   color: lightpink;
+}
+
+.result {
+  padding: 0px 10px;
+}
+
+.resultContainer {
+  text-align: left;
+  border: 3px solid grey;
+  border-radius: 10px;
+  max-width: 730px;
+  width: 50vw;
+  min-width: 210px;
+}
+
+.options {
+  padding: 0px 0px 10px;
+  min-width: 210px;
+  max-width: 210px;
+  height: 400px;
+  border: 3px solid grey;
+  border-radius: 10px;
+}
+
+.slider {
+  min-width: 210px;
+  max-width: 210px;
+}
+
+.separator {
+  min-width: 210px;
+  max-width: 210px;
+}
+
+.containerTitle {
+  font-weight: bold;
+  text-align: center;
+  padding: 8px 0px;
+  margin-bottom: 15px;
+  border-radius: 7px 7px 0px 0px;
+  border-bottom: 3px solid grey;
+  font-weight: bold;
+}
+
+.mainContainer {
+  display: flex;
+  column-gap: 10px;
+  direction: cross;
+}
+
+@media ( max-width: 900px ) {
+  .passwords {
+    font-size: 15pt;
+  }
+}
+
+@media ( max-width: 800px ) {
+  .resultContainer {
+    max-width: 400px;
+  }
+}
+
+@media ( max-width: 650px ) {
+  .mainContainer {
+    flex-direction: column;
+    row-gap: 10px;
+  }
+  .resultContainer {
+    max-width: 500px;
+    width: 500px;
+    padding-bottom: 10px;
+  }
+  .options {
+  }
 }

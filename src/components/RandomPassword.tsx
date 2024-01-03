@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react'
 import { unstructuredParser } from '../assets/passwordParser.tsx'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import Stack from '@mui/material/Stack'
 import Slider from '@mui/material/Slider'
 import ModificationSwitch from './ModificationSwitch.tsx'
 import Clipboard from 'react-clipboard.js'
 
 export default function RandomPassword() {
-  const [minLength, maxLength] = [15, 35];
+  const [minLength, maxLength] = [15, 55];
   const [password, setPassword] = useState([]);
   const [passwordLength, setPasswordLength] = useState(20)
   const [useColor, setUseColor] = useState(true);
@@ -23,7 +20,7 @@ export default function RandomPassword() {
 
   // Title Component
   const Title = () => {
-    return <h2>Random Password:</h2>
+    return <h2>Random Password</h2>
   }
 
   // Picks a list of Characters to use based on the state of useNumbers and useSymbols
@@ -95,34 +92,41 @@ export default function RandomPassword() {
   }, [passwordLength, useSymbols, useNumbers, useMixedCase]);
 
   return (
-    <>
-      <Box sx={{ width: 700, textAlign: "center"}}>
-      <Title />
-      <PasswordDisplay />
-      <br />
-      <br />
-      <Box sx={{ width: 230, textAlign: "left" }}>
-        <Clipboard data-clipboard-text={passwordWord}>Copy to Clipboard</Clipboard>
-        <Button />
-        <p style={{ textAlign: "left" }}>Number of Characters: {passwordLength}</p>
-        <Slider
-          track={false}
-          value={passwordLength}
-          onChange={handleSliderChange}
-          aria-label="Number Of Words"
-          defaultValue={passwordLength}
-          valueLabelDisplay="auto"
-          step={1}
-          marks
-          min={minLength}
-          max={maxLength}
-        />
+    <div className="mainContainer">
+      <div className="options">
+        <div className="containerTitle">Options</div>
+          <Button />
+          <Clipboard data-clipboard-text={passwordWord}>Copy to Clipboard</Clipboard>
+          <br />
+          <br />
+        <div>
+          <div className="slider">
+          Character Count ↓
+          <Slider
+            track={false}
+            value={passwordLength}
+            onChange={handleSliderChange}
+            aria-label="Number Of Words"
+            defaultValue={passwordLength}
+            valueLabelDisplay="auto"
+            style={{ width: 180 }}
+            step={1}
+            min={minLength}
+            max={maxLength}
+          />
+          </div>
+        </div>
         <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
         <ModificationSwitch title={"Use Symbols"} setState={setUseSymbols} state={useSymbols} />
         <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixedCase} state={useMixedCase} />
         <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
-      </Box>
-      </Box>
-    </>
-  )
+      </div>
+      <div className="resultContainer">
+        <div className="containerTitle">Result</div>
+        <div className="result">
+          <PasswordDisplay />
+        </div>
+      </div>
+    </div>
+  );
 }
