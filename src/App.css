@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono:regular,bold');
 
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -35,7 +34,7 @@ button {
 }
 
 .result {
-  padding: 0px 10px;
+  padding: 0px 10px 7px;
 }
 
 .resultContainer {
@@ -49,8 +48,6 @@ button {
 
 .options {
   padding: 0px 0px 10px;
-  min-width: 210px;
-  max-width: 210px;
   height: 400px;
   border: 3px solid grey;
   border-radius: 10px;
@@ -59,11 +56,19 @@ button {
 .slider {
   min-width: 210px;
   max-width: 210px;
+  padding-top: 15px;
+}
+
+.sliderRandom {
+  min-width: 210px;
+  max-width: 210px;
+  padding-top: 15px;
 }
 
 .separator {
   min-width: 210px;
   max-width: 210px;
+  padding-bottom: 10px;
 }
 
 .containerTitle {
@@ -80,6 +85,17 @@ button {
   display: flex;
   column-gap: 10px;
   direction: cross;
+}
+
+.optionsControls {
+  min-width: 210px;
+  max-width: 210px;
+}
+
+.modSwitch {
+  align-items: center;
+  text-align: left;
+  padding-left: 10px;
 }
 
 @media ( max-width: 900px ) {
@@ -103,7 +119,32 @@ button {
     max-width: 500px;
     width: 500px;
     padding-bottom: 10px;
+    text-align: center;
   }
   .options {
+    height: auto;
+    max-width: 500px;
+  }
+  .optionsControls {
+    max-width: 500px;
+    width: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: space-around;
+    justify-content: center;
+  }
+  .modSwitch {
+    text-align: center;
+    padding: 0px 10px;
+  }
+  #generator {
+    padding: 0px 10px;
+  }
+  #clipboard {
+    padding: 0px 10px;
+  }
+  .sliderRandom {
+    padding: 10px 80px 0px;
   }
 }

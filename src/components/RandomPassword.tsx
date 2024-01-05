@@ -95,12 +95,11 @@ export default function RandomPassword() {
     <div className="mainContainer">
       <div className="options">
         <div className="containerTitle">Options</div>
-          <Button />
-          <Clipboard data-clipboard-text={passwordWord}>Copy to Clipboard</Clipboard>
-          <br />
-          <br />
+        <div className="optionsControls">
+          <div id="generator"><Button /></div>
+          <div id="clipboard"><Clipboard data-clipboard-text={passwordWord}>Copy to Clipboard</Clipboard></div>
         <div>
-          <div className="slider">
+          <div className="sliderRandom">
           Character Count ↓
           <Slider
             track={false}
@@ -120,6 +119,7 @@ export default function RandomPassword() {
         <ModificationSwitch title={"Use Symbols"} setState={setUseSymbols} state={useSymbols} />
         <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixedCase} state={useMixedCase} />
         <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
+      </div>
       </div>
       <div className="resultContainer">
         <div className="containerTitle">Result</div>

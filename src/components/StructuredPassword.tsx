@@ -90,11 +90,9 @@ export default function StructuredPassword() {
     <div className="mainContainer">
       <div className="options">
         <div className="containerTitle">Options</div>
-          <GeneratorButton />
-          <Clipboard data-clipboard-text={passwordWord}>Copy to Clipboard</Clipboard>
-        <br />
-        <br />
-        <div>
+        <div className="optionsControls">
+          <div id="generator"><GeneratorButton /></div>
+          <div id="clipboard"><Clipboard data-clipboard-text={passwordWord}>Copy to Clipboard</Clipboard></div>
           <div className="slider">
             Number of Words ↓
             <Slider
@@ -132,10 +130,10 @@ export default function StructuredPassword() {
               <option value={"none"}>No Symbol</option>
             </select>
           </div>
-        <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
-        <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixed} state={useMixed} />
-        <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
-      </div>
+          <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
+          <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixed} state={useMixed} />
+          <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
+        </div>
       </div>
       <div className="resultContainer">
         <div className="containerTitle">Result</div>

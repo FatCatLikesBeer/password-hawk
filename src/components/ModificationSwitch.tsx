@@ -8,15 +8,15 @@ export default function ModificationSwitch(props) {
   }
   return (
     <>
-      <Stack direction="row" spacing={1} alignItems="center">
+      <div className="modSwitch">
         <Switch
           label={props.title}
           checked={props.state}
           onChange={onChange}
           size="large"
         />
-        <p>{props.title}</p>
-      </Stack>
+        {props.title}
+      </div>
     </>
   )
 }
