@@ -85,7 +85,7 @@ export default function RandomPassword(props) {
 
   // Component: Button that runs the password generator
   const Button = () => {
-    return <button onClick={passwordGenerator}>Generate Word</button>
+    return <button onClick={passwordGenerator}>Make Passcode</button>
   }
 
   // Toggle Dropdown function
@@ -109,7 +109,7 @@ export default function RandomPassword(props) {
         <div className="containerTitle">Options</div>
         <div className="optionsControls">
           <div id="generator" onClick={dropdownFalse}><Button /></div>
-          <div id="clipboard"><Clipboard data-clipboard-text={passwordWord} onClick={dropdownFalse}>Clipboard Copy</Clipboard></div>
+          <div id="clipboard"><Clipboard data-clipboard-text={passwordWord} onClick={dropdownFalse}>{!isDropdownNeeded ? "Copy to Clipboard" : "Clipboard Copy"}</Clipboard></div>
           {/* The reason for this atrocious ternary is because of MaterialUI */}
           {/* I tried putting the JSX inside of it's own Component, but MUI kept throwing errors */}
           {/* So here it is :( */}
@@ -170,7 +170,7 @@ export default function RandomPassword(props) {
         </div>
       </div>
       <div className="resultContainer">
-        <div className="resultsContainerTitle">Random Character Password</div>
+        <div className="resultsContainerTitle">Random Character Passcode</div>
         <div className="result">
           <PasswordDisplay />
         </div>

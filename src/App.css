@@ -176,11 +176,8 @@ button {
     align-items: left;
     text-align: left;
   }
-  #generator {
-    padding: 0px 10px;
-  }
-  #clipboard {
-    padding: 0px 10px;
+  #generator, #clipboard{
+    padding: 0px 4px;
   }
   .separator, .slider {
     min-width: 200px;

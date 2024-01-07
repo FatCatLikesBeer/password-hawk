@@ -22,7 +22,7 @@ function App() {
     }
     return (
       <div id="mainToggle" style={{ paddingBottom: 20 }}>
-        Random Password
+        {!isDropdownNeeded ? "Random Character Passcode" : "Random Passcode"}
         <Switch
           checked={checked}
           onChange={toggleLogic}
