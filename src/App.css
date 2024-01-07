@@ -48,6 +48,7 @@ button {
   max-width: 730px;
   width: 50vw;
   min-width: 210px;
+  text-align: left;
 }
 
 .options {
@@ -125,6 +126,9 @@ button {
 }
 
 @media ( max-width: 650px ) {
+  #root {
+    padding: 1rem 0rem;
+  }
   #mainToggle {
     font-size: 11pt;
   }
@@ -133,6 +137,7 @@ button {
   }
   h1 {
     font-size: 2.7em;
+    margin: 0px;
   }
   .mainContainer {
     flex-direction: column;

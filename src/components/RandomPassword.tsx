@@ -92,48 +92,24 @@ export default function RandomPassword(props) {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+  //
+  // Set's the dropdown state value to false
+  const dropdownFalse = () => {
+    setIsDropdownOpen(false);
+  }
 
   // Generates a password on page load and when options change
   useEffect(() => {
     passwordGenerator();
   }, [useSymbols, useNumbers, useMixedCase, passwordLength]);
 
-  // Modifiers Section
-  const Modifiers = () => {
-    return (
-      <div id="dropdown">
-        <div className="sliderRandom">
-          Character Count ↓
-          <Slider
-            track={false}
-            value={passwordLength}
-            onChange={handleSliderChange}
-            aria-label="Number Of Words"
-            defaultValue={passwordLength}
-            valueLabelDisplay="auto"
-            style={{ width: 180 }}
-            step={1}
-            min={minLength}
-            max={maxLength}
-          />
-        </div>
-        <div id="modSwitchContainer">
-          <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
-          <ModificationSwitch title={"Use Symbols"} setState={setUseSymbols} state={useSymbols} />
-          <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixedCase} state={useMixedCase} />
-          <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="mainContainer">
       <div className="options">
         <div className="containerTitle">Options</div>
         <div className="optionsControls">
-          <div id="generator"><Button /></div>
-          <div id="clipboard"><Clipboard data-clipboard-text={passwordWord}>Clipboard Copy</Clipboard></div>
+          <div id="generator" onClick={dropdownFalse}><Button /></div>
+          <div id="clipboard"><Clipboard data-clipboard-text={passwordWord} onClick={dropdownFalse}>Clipboard Copy</Clipboard></div>
           {/* The reason for this atrocious ternary is because of MaterialUI */}
           {/* I tried putting the JSX inside of it's own Component, but MUI kept throwing errors */}
           {/* So here it is :( */}

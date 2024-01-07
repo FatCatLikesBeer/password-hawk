@@ -64,6 +64,11 @@ export default function StructuredPassword(props) {
   const passwordWord = password.join("")
   const passwordList = structuredParser(password, useColor);
 
+  // Set's the dropdown state value to false
+  const dropdownFalse = () => {
+    setIsDropdownOpen(false);
+  }
+
   // The button component that calls the generator
   const GeneratorButton = () => {
     return (
@@ -98,8 +103,8 @@ export default function StructuredPassword(props) {
       <div className="options">
         <div className="containerTitle">Options</div>
         <div className="optionsControls">
-          <div id="generator"><GeneratorButton /></div>
-          <div id="clipboard"><Clipboard data-clipboard-text={passwordWord}>Clipboard Copy</Clipboard></div>
+          <div id="generator" onClick={dropdownFalse}><GeneratorButton /></div>
+          <div id="clipboard"><Clipboard data-clipboard-text={passwordWord} onClick={dropdownFalse}>Clipboard Copy</Clipboard></div>
           {/* The reason for this atrocious ternary is because of MaterialUI */}
           {/* I tried putting the JSX inside of it's own Component, but MUI kept throwing errors */}
           {/* So here it is :( */}
