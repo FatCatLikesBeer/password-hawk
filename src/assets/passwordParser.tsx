@@ -1,6 +1,14 @@
 // Parses the password state variable into a 
 // a list of decorated HTML elements.
 
+// Makes the following error go away:
+// Warning: Each child in a list should have a unique "key" prop.
+let key = 0;
+const keyMaker = () => {
+  key = key + 1;
+  return key;
+}
+
 // Parser for the main, structured password
 export const structuredParser = (source, style) => {
   const noColor = { color: "grey" };
@@ -9,14 +17,14 @@ export const structuredParser = (source, style) => {
     let result
     if (e.length >= 2) {
       if (e[0] === e[0].toUpperCase()) {
-        result = <span className="upper" style={colorize}>{e}</span>
+        result = <span className="upper" style={colorize} key={keyMaker()}>{e}</span>
       } else {
-        result = <span className="lower" style={colorize}>{e}</span>
+        result = <span className="lower" style={colorize} key={keyMaker()}>{e}</span>
       }
     } else if (!isNaN(Number(e))) {
-      result = <span className="int" style={colorize}>{e}</span>
+      result = <span className="int" style={colorize} key={keyMaker()}>{e}</span>
     } else {
-      result = <span className="symbol" style={colorize}>{e}</span>
+      result = <span className="symbol" style={colorize} key={keyMaker(0)}>{e}</span>
     }
     return result
   })
@@ -34,14 +42,14 @@ export const unstructuredParser = (source, style) => {
   let result;
   if (isLetterOrSymbol(e)) {
     if (e[0] === e[0].toUpperCase()) {
-      result = <span className="upper" style={colorize}>{e}</span>;
+      result = <span className="upper" style={colorize} key={keyMaker(0)}>{e}</span>;
     } else {
-      result = <span className="lower" style={colorize}>{e}</span>;
+      result = <span className="lower" style={colorize} key={keyMaker(0)}>{e}</span>;
     }
   } else if (!isNaN(Number(e))) {
-    result = <span className="int" style={colorize}>{e}</span>;
+    result = <span className="int" style={colorize} key={keyMaker(0)}>{e}</span>;
   } else {
-    result = <span className="symbol" style={colorize}>{e}</span>;
+    result = <span className="symbol" style={colorize} key={keyMaker(0)}>{e}</span>;
   };
   return result;
 });

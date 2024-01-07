@@ -4,7 +4,7 @@ import Slider from '@mui/material/Slider'
 import ModificationSwitch from './ModificationSwitch.tsx'
 import Clipboard from 'react-clipboard.js'
 
-export default function RandomPassword() {
+export default function RandomPassword(props) {
   const [minLength, maxLength] = [15, 55];
   const [password, setPassword] = useState([]);
   const [passwordLength, setPasswordLength] = useState(20)
@@ -12,6 +12,8 @@ export default function RandomPassword() {
   const [useNumbers, setUseNumbers] = useState(true);
   const [useSymbols, setUseSymbols] = useState(true);
   const [useMixedCase, setUseMixedCase] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const isDropdownNeeded = props.isDropdownNeeded;
 
   // Arrays filled with potentially available characters
   const characters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
@@ -83,23 +85,24 @@ export default function RandomPassword() {
 
   // Component: Button that runs the password generator
   const Button = () => {
-    return <button onClick={passwordGenerator}>Make Password</button>
+    return <button onClick={passwordGenerator}>Generate Word</button>
   }
 
-  // Generates a password on page load
+  // Toggle Dropdown function
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  // Generates a password on page load and when options change
   useEffect(() => {
     passwordGenerator();
-  }, [passwordLength, useSymbols, useNumbers, useMixedCase]);
+  }, [useSymbols, useNumbers, useMixedCase, passwordLength]);
 
-  return (
-    <div className="mainContainer">
-      <div className="options">
-        <div className="containerTitle">Options</div>
-        <div className="optionsControls">
-          <div id="generator"><Button /></div>
-          <div id="clipboard"><Clipboard data-clipboard-text={passwordWord}>Copy to Clipboard</Clipboard></div>
-        <div>
-          <div className="sliderRandom">
+  // Modifiers Section
+  const Modifiers = () => {
+    return (
+      <div id="dropdown">
+        <div className="sliderRandom">
           Character Count ↓
           <Slider
             track={false}
@@ -113,16 +116,85 @@ export default function RandomPassword() {
             min={minLength}
             max={maxLength}
           />
-          </div>
         </div>
-        <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
-        <ModificationSwitch title={"Use Symbols"} setState={setUseSymbols} state={useSymbols} />
-        <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixedCase} state={useMixedCase} />
-        <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
+        <div id="modSwitchContainer">
+          <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
+          <ModificationSwitch title={"Use Symbols"} setState={setUseSymbols} state={useSymbols} />
+          <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixedCase} state={useMixedCase} />
+          <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
+        </div>
       </div>
+    );
+  }
+
+  return (
+    <div className="mainContainer">
+      <div className="options">
+        <div className="containerTitle">Options</div>
+        <div className="optionsControls">
+          <div id="generator"><Button /></div>
+          <div id="clipboard"><Clipboard data-clipboard-text={passwordWord}>Clipboard Copy</Clipboard></div>
+          {/* The reason for this atrocious ternary is because of MaterialUI */}
+          {/* I tried putting the JSX inside of it's own Component, but MUI kept throwing errors */}
+          {/* So here it is :( */}
+          {!isDropdownNeeded ?
+            <div id="dropdown">
+              <div className="slider">
+                Character Count ↓
+                <Slider
+                  track={false}
+                  value={passwordLength}
+                  onChange={handleSliderChange}
+                  aria-label="Number Of Words"
+                  defaultValue={passwordLength}
+                  valueLabelDisplay="auto"
+                  style={{ width: 180 }}
+                  step={1}
+                  min={minLength}
+                  max={maxLength}
+                />
+              </div>
+              <div id="modSwitchContainer">
+                <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
+                <ModificationSwitch title={"Use Symbols"} setState={setUseSymbols} state={useSymbols} />
+                <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixedCase} state={useMixedCase} />
+                <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
+              </div>
+            </div>
+            : isDropdownOpen ?
+              <div id="dropdown">
+                <div className="slider">
+                  Character Count ↓
+                  <Slider
+                    track={false}
+                    value={passwordLength}
+                    onChange={handleSliderChange}
+                    aria-label="Number Of Words"
+                    defaultValue={passwordLength}
+                    valueLabelDisplay="auto"
+                    style={{ width: 180 }}
+                    step={1}
+                    min={minLength}
+                    max={maxLength}
+                  />
+                </div>
+                <div id="modSwitchContainer">
+                  <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
+                  <ModificationSwitch title={"Use Symbols"} setState={setUseSymbols} state={useSymbols} />
+                  <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixedCase} state={useMixedCase} />
+                  <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
+                </div>
+              </div> : ""}
+          {/* Glorious End of atrocious ternary */}
+          {isDropdownNeeded ?
+            isDropdownOpen ?
+              <span style={{ width: 200, color: "dodgerblue" }} onClick={toggleDropdown}>hide modifiers</span> :
+              <span style={{ width: 200, color: "dodgerblue" }} onClick={toggleDropdown}>show modifiers</span> :
+            ""}
+        </div>
       </div>
       <div className="resultContainer">
-        <div className="containerTitle">Result</div>
+        <div className="resultsContainerTitle">Random Character Password</div>
         <div className="result">
           <PasswordDisplay />
         </div>

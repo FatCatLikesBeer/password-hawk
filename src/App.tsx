@@ -7,11 +7,9 @@ import RandomPassword from './components/RandomPassword'
 import './App.css'
 
 function App() {
-  const [passwordLength, setPasswordLength] = useState(20);
-  const [passwordCase, setPasswordCase] = useState("mixed");
-  const [passwordSymbol, setPasswordSymbol] = useState(null);
   const [checked, setChecked] = useState(true);
-  
+  const [isDropdownNeeded, setIsDropdownNeeded] = useState(window.innerWidth <= 650);
+
   // Header
   const Header = () => {
     return (<h1 style={{paddingBottom: 15}}>Password Hawk</h1>);
@@ -23,7 +21,7 @@ function App() {
       setChecked(!checked);
     }
     return (
-      <div style={{ paddingBottom: 20 }}>
+      <div id="mainToggle" style={{ paddingBottom: 20 }}>
         Random Password
         <Switch
           checked={checked}
@@ -35,8 +33,24 @@ function App() {
     );
   }
 
+  // Window Resize State function
+  const handleResize = () => {
+    setIsDropdownNeeded(window.innerWidth <= 650);
+  };
+
+  // Call handleResize when window resizes
+  useEffect(() => {
+    // Add event listener when component mounts
+    window.addEventListener('resize', handleResize);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [])
+
   // Main Password Component
-  const MainComponent = () => { return <> {checked ? <StructuredPassword /> : <RandomPassword />} </> }
+  const MainComponent = () => { return <> {checked ? <StructuredPassword isDropdownNeeded={isDropdownNeeded}/> : <RandomPassword isDropdownNeeded={isDropdownNeeded} />} </> }
 
   return (
     <>
@@ -50,7 +64,7 @@ function App() {
           Longer passwords are better.
         </p>
         <p>
-          Should contain all the four character types: <span className="upper">uppercase</span>, <span className="lower">lowercase</span>, <span className="int">numerals</span>, <span className="symbol">symbols</span>.
+          Should contain all the four character types: <span style={{  }}><span className="upper">uppercase</span>, <span className="lower">lowercase</span>, <span className="int">numerals</span>, <span className="symbol">symbols</span></span>.
         </p>
         <br />
         <br />

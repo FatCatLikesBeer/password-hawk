@@ -10,7 +10,7 @@ import generateNumber from '../assets/numberGenerator.tsx'
 import generateCombo from '../assets/comboGenerator.tsx'
 
 // Structured Password Component
-export default function StructuredPassword() {
+export default function StructuredPassword(props) {
   const [minLength, maxLength] = [3, 25];
   const [password, setPassword] = useState(["2", "place", "-", "3", "HOLDER"]);
   const [numberOfWords, setNumberOfWord] = useState(5);
@@ -18,6 +18,8 @@ export default function StructuredPassword() {
   const [useNumbers, setUseNumbers] = useState(true);
   const [useMixed, setUseMixed] = useState(true);
   const [useColor, setUseColor] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const isDropdownNeeded = props.isDropdownNeeded;
 
   //--------------- Main Password Generator Function ----------------- //
   const generateAndSet = () => {
@@ -66,7 +68,7 @@ export default function StructuredPassword() {
   const GeneratorButton = () => {
     return (
       <>
-        <button className="button" onClick={generateAndSet}>Make Password</button>
+        <button className="button" onClick={generateAndSet}>Generate Word</button>
       </>
     );
   }
@@ -81,7 +83,12 @@ export default function StructuredPassword() {
     setUseSymbols(event.target.value);
   };
 
-  // Run generator on page load
+  // Toggle Dropdown function
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  // Run generator on page load and when options change
   useEffect(() => {
     generateAndSet();
   }, [useSymbols, useNumbers, useMixed, numberOfWords]);
@@ -92,51 +99,110 @@ export default function StructuredPassword() {
         <div className="containerTitle">Options</div>
         <div className="optionsControls">
           <div id="generator"><GeneratorButton /></div>
-          <div id="clipboard"><Clipboard data-clipboard-text={passwordWord}>Copy to Clipboard</Clipboard></div>
-          <div className="slider">
-            Number of Words ↓
-            <Slider
-              track={false}
-              value={numberOfWords}
-              onChange={handleSliderChange}
-              aria-label="Number Of Words"
-              valueLabelDisplay="auto"
-              style={{ width: 180 }}
-              step={1}
-              marks
-              min={minLength}
-              max={maxLength}
-            />
-          </div>
-          <div className="separator">
-            Separator Symbol ↓
-            <select
-              title="Symbol"
-              value={useSymbols}
-              onChange={handleSymbolChange}
-              style={{ width: 180 }}
-            >
-              <option value={"-"}>-</option>
-              <option value={"_"}>_</option>
-              <option value={"+"}>+</option>
-              <option value={"&"}>&</option>
-              <option value={"!"}>!</option>
-              <option value={"#"}>#</option>
-              <option value={"$"}>$</option>
-              <option value={"^"}>^</option>
-              <option value={"|"}>|</option>
-              <option value={"@"}>@</option>
-              <option value={"random"}>Random Symbol</option>
-              <option value={"none"}>No Symbol</option>
-            </select>
-          </div>
-          <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
-          <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixed} state={useMixed} />
-          <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
+          <div id="clipboard"><Clipboard data-clipboard-text={passwordWord}>Clipboard Copy</Clipboard></div>
+          {/* The reason for this atrocious ternary is because of MaterialUI */}
+          {/* I tried putting the JSX inside of it's own Component, but MUI kept throwing errors */}
+          {/* So here it is :( */}
+          {!isDropdownNeeded ?
+            <div id="dropdown">
+              <div className="slider">
+                Number of Words ↓
+                <Slider
+                  track={false}
+                  value={numberOfWords}
+                  onChange={handleSliderChange}
+                  aria-label="Number Of Words"
+                  valueLabelDisplay="auto"
+                  style={{ width: 180 }}
+                  step={1}
+                  marks
+                  min={minLength}
+                  max={maxLength}
+                />
+              </div>
+              <div className="separator">
+                Separator Symbol ↓
+                <select
+                  title="Symbol"
+                  value={useSymbols}
+                  onChange={handleSymbolChange}
+                  style={{ width: 180 }}
+                >
+                  <option value={"-"}>-</option>
+                  <option value={"_"}>_</option>
+                  <option value={"+"}>+</option>
+                  <option value={"&"}>&</option>
+                  <option value={"!"}>!</option>
+                  <option value={"#"}>#</option>
+                  <option value={"$"}>$</option>
+                  <option value={"^"}>^</option>
+                  <option value={"|"}>|</option>
+                  <option value={"@"}>@</option>
+                  <option value={"random"}>Random Symbol</option>
+                  <option value={"none"}>No Symbol</option>
+                </select>
+              </div>
+              <div id="modSwitchContainer">
+                <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
+                <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixed} state={useMixed} />
+                <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
+              </div>
+            </div>
+            : isDropdownOpen ?
+              <div id="dropdown">
+                <div className="slider">
+                  Number of Words ↓
+                  <Slider
+                    track={false}
+                    value={numberOfWords}
+                    onChange={handleSliderChange}
+                    aria-label="Number Of Words"
+                    valueLabelDisplay="auto"
+                    style={{ width: 180 }}
+                    step={1}
+                    marks
+                    min={minLength}
+                    max={maxLength}
+                  />
+                </div>
+                <div className="separator">
+                  Separator Symbol ↓
+                  <select
+                    title="Symbol"
+                    value={useSymbols}
+                    onChange={handleSymbolChange}
+                    style={{ width: 180 }}
+                  >
+                    <option value={"-"}>-</option>
+                    <option value={"_"}>_</option>
+                    <option value={"+"}>+</option>
+                    <option value={"&"}>&</option>
+                    <option value={"!"}>!</option>
+                    <option value={"#"}>#</option>
+                    <option value={"$"}>$</option>
+                    <option value={"^"}>^</option>
+                    <option value={"|"}>|</option>
+                    <option value={"@"}>@</option>
+                    <option value={"random"}>Random Symbol</option>
+                    <option value={"none"}>No Symbol</option>
+                  </select>
+                </div>
+                <div id="modSwitchContainer">
+                  <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
+                  <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixed} state={useMixed} />
+                  <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
+                </div>
+              </div> : "" }
+          {/* Glorious End of atrocious ternary */}
+          {isDropdownNeeded ?
+            isDropdownOpen ?
+              <span style={{ width: 200, color: "dodgerblue" }} onClick={toggleDropdown}>hide modifiers</span> :
+              <span style={{ width: 200, color: "dodgerblue" }} onClick={toggleDropdown}>show modifiers</span> :
+            ""}
         </div>
       </div>
       <div className="resultContainer">
-        <div className="containerTitle">Result</div>
+        <div className="resultsContainerTitle">Passphrase</div>
         <div className="result">
           <span className="passwords" id="password">{passwordList}</span>
         </div>

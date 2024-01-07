@@ -31,7 +31,6 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
   line-height: 1.1;
 }
 
@@ -42,27 +41,28 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  background-color: grey;
+  color: #242424;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: dodgerblue;
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 8px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+select {
+  transition: border-color 0.25s;
+  border-radius: 4px;
+  cursor: pointer;
+}
+select:hover {
+  border-color: dodgerblue;
+}
+select:focus,
+select:focus-visible {
+  outline: 8px auto -webkit-focus-ring-color;
 }

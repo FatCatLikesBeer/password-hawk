@@ -6,6 +6,10 @@
   text-align: center;
 }
 
+h1 {
+  font-size: 3.2em;
+}
+
 button {
   margin: 0px 0px 5px;
 }
@@ -22,15 +26,15 @@ button {
 }
 
 .int {
-  color: lightyellow;
+  color: gold;
 }
 
 .lower {
-  color: grey;
+  color: lightgrey;
 }
 
 .upper {
-  color: lightpink;
+  color: salmon;
 }
 
 .result {
@@ -38,7 +42,7 @@ button {
 }
 
 .resultContainer {
-  text-align: left;
+  text-align: center;
   border: 3px solid grey;
   border-radius: 10px;
   max-width: 730px;
@@ -81,6 +85,16 @@ button {
   font-weight: bold;
 }
 
+.resultsContainerTitle {
+  font-weight: bold;
+  text-align: center;
+  padding: 8px 0px;
+  margin-bottom: 15px;
+  border-radius: 7px 7px 0px 0px;
+  border-bottom: 3px solid grey;
+  font-weight: bold;
+}
+
 .mainContainer {
   display: flex;
   column-gap: 10px;
@@ -111,23 +125,37 @@ button {
 }
 
 @media ( max-width: 650px ) {
+  #mainToggle {
+    font-size: 11pt;
+  }
+  p {
+    width: 340px;
+  }
+  h1 {
+    font-size: 2.7em;
+  }
   .mainContainer {
     flex-direction: column;
     row-gap: 10px;
   }
   .resultContainer {
-    max-width: 500px;
-    width: 500px;
+    max-width: 350px;
+    width: 350px;
     padding-bottom: 10px;
     text-align: center;
+    border: 3px solid gold;
+  }
+  .resultsContainerTitle {
+    color: gold;
+    border-bottom: 3px solid gold;
   }
   .options {
     height: auto;
-    max-width: 500px;
+    max-width: 350px;
   }
   .optionsControls {
-    max-width: 500px;
-    width: 500px;
+    max-width: 350px;
+    width: 350px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -135,8 +163,13 @@ button {
     justify-content: center;
   }
   .modSwitch {
-    text-align: center;
+    text-align: left;
     padding: 0px 10px;
+  }
+  #modSwitchContainer {
+    max-width: 200px;
+    align-items: left;
+    text-align: left;
   }
   #generator {
     padding: 0px 10px;
@@ -144,7 +177,12 @@ button {
   #clipboard {
     padding: 0px 10px;
   }
-  .sliderRandom {
-    padding: 10px 80px 0px;
+  .separator, .slider {
+    min-width: 200px;
+    max-width: 200px;
+    width: 220px;
+  }
+  #dropdown {
+    align-items: center;
   }
 }
