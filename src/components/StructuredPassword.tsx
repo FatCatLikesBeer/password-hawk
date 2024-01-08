@@ -12,8 +12,8 @@ import generateCombo from '../assets/comboGenerator.tsx'
 // Structured Password Component
 export default function StructuredPassword(props) {
   const [minLength, maxLength] = [3, 25];
-  const [password, setPassword] = useState(["2", "place", "-", "3", "HOLDER"]);
-  const [numberOfWords, setNumberOfWord] = useState(5);
+  const [password, setPassword] = useState(["1", "PASS", "-", "2", "word", "-", "3", "HAWK"]);
+  const [numberOfWords, setNumberOfWords] = useState(5);
   const [useSymbols, setUseSymbols] = useState("-");
   const [useNumbers, setUseNumbers] = useState(true);
   const [useMixed, setUseMixed] = useState(true);
@@ -41,13 +41,13 @@ export default function StructuredPassword(props) {
       const result = Math.floor(Math.random() * 5) + 4;
       return result;
     }
-    // Return a bool, 50-50 odds
+    // Return a true/false, 50-50 odds
     function randomBool() {
       let result = Math.random() > 0.5 ? true : false;
       result = useMixed ? result : true;
       return result;
     }
-    // Add initial word to passphrase
+    // Add the first "word"
     result.push(includeNumber());
     result.push(generateWord(randomValue(), randomBool()));
     // Add more words based on numberOfWords
@@ -61,13 +61,9 @@ export default function StructuredPassword(props) {
 
   // Parses the password state variable into a
   // a list of decorated HTML elements.
-  const passwordWord = password.join("")
   const passwordList = structuredParser(password, useColor);
 
-  // Set's the dropdown state value to false
-  const dropdownFalse = () => {
-    setIsDropdownOpen(false);
-  }
+  const passwordAsString = password.join("")
 
   // The button component that calls the generator
   const GeneratorButton = () => {
@@ -80,7 +76,7 @@ export default function StructuredPassword(props) {
 
   // Takes the value of the slider and modifies the numberOfWords value
   const handleSliderChange = (event, newValue) => {
-    setNumberOfWord(newValue);
+    setNumberOfWords(newValue);
   };
 
   // Changes the symbol based on selection
@@ -93,10 +89,15 @@ export default function StructuredPassword(props) {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  // Set's the dropdown state value to false
+  const dropdownFalse = () => {
+    setIsDropdownOpen(false);
+  }
+
   // Run generator on page load and when options change
   useEffect(() => {
     generateAndSet();
-  }, [useSymbols, useNumbers, useMixed, numberOfWords]);
+  }, [numberOfWords, useSymbols, useNumbers, useMixed]);
 
   return (
     <div className="mainContainer">
@@ -104,10 +105,9 @@ export default function StructuredPassword(props) {
         <div className="containerTitle">Options</div>
         <div className="optionsControls">
           <div id="generator" onClick={dropdownFalse}><GeneratorButton /></div>
-          <div id="clipboard"><Clipboard data-clipboard-text={passwordWord} onClick={dropdownFalse}>{!isDropdownNeeded ? "Copy to Clipboard" : "Clipboard Copy"}</Clipboard></div>
+          <div id="clipboard"><Clipboard data-clipboard-text={passwordAsString} onClick={dropdownFalse}>{!isDropdownNeeded ? "Copy to Clipboard" : "Clipboard Copy"}</Clipboard></div>
           {/* The reason for this atrocious ternary is because of MaterialUI */}
-          {/* I tried putting the JSX inside of it's own Component, but MUI kept throwing errors */}
-          {/* So here it is :( */}
+          {/* The MUI Slider Component breaks if I put it in its own component. */}
           {!isDropdownNeeded ?
             <div id="dropdown">
               <div className="slider">

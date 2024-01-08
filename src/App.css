@@ -113,6 +113,34 @@ button {
   padding-left: 10px;
 }
 
+#copy {
+  width: 65vw;
+  max-width: 950px;
+  text-align: left;
+  padding-top: 35vh;
+  transition: padding 0.3s ease-in-out;
+}
+
+#copy h2 {
+  margin: 12px 0px;
+  padding-top: 40px;
+}
+
+#copy p {
+  margin: 8px 0px;
+}
+
+#ps {
+  color: grey;
+  font-size: 10pt;
+}
+
+@media ( min-height: 900px ) {
+  #copy {
+    padding-top: 0px;
+  }
+}
+
 @media ( max-width: 900px ) {
   .passwords {
     font-size: 15pt;
@@ -123,6 +151,9 @@ button {
   .resultContainer {
     max-width: 400px;
   }
+  #copy {
+    width: 80vw;
+  }
 }
 
 @media ( max-width: 650px ) {
@@ -132,12 +163,13 @@ button {
   #mainToggle {
     font-size: 11pt;
   }
-  p {
-    width: 340px;
-  }
   h1 {
     font-size: 2.7em;
     margin: 0px;
+  }
+  #copy {
+    width: 340px;
+    padding-top: 250px;
   }
   .mainContainer {
     flex-direction: column;
@@ -156,6 +188,7 @@ button {
   }
   .options {
     height: auto;
+    min-height: auto;
     max-width: 350px;
   }
   .optionsControls {

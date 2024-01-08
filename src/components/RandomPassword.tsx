@@ -111,8 +111,7 @@ export default function RandomPassword(props) {
           <div id="generator" onClick={dropdownFalse}><Button /></div>
           <div id="clipboard"><Clipboard data-clipboard-text={passwordWord} onClick={dropdownFalse}>{!isDropdownNeeded ? "Copy to Clipboard" : "Clipboard Copy"}</Clipboard></div>
           {/* The reason for this atrocious ternary is because of MaterialUI */}
-          {/* I tried putting the JSX inside of it's own Component, but MUI kept throwing errors */}
-          {/* So here it is :( */}
+          {/* The MUI Slider Component breaks if I put it in its own component. */}
           {!isDropdownNeeded ?
             <div id="dropdown">
               <div className="slider">

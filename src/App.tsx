@@ -10,18 +10,16 @@ function App() {
   const [checked, setChecked] = useState(true);
   const [isDropdownNeeded, setIsDropdownNeeded] = useState(window.innerWidth <= 650);
 
-  // Header
   const Header = () => {
-    return (<h1 style={{paddingBottom: 15}}>Password Hawk</h1>);
+    return <h1 style={{paddingBottom: 15}}>Password Hawk</h1>;
   }
 
-  // Toggle between Structured and Unstructured Password Generator
   const Toggle = () => {
     const toggleLogic = () => {
       setChecked(!checked);
     }
     return (
-      <div id="mainToggle" style={{ paddingBottom: 20 }}>
+      <div id="mainToggle" style={{ paddingBottom: 10 }}>
         {!isDropdownNeeded ? "Random Character Passcode" : "Random Passcode"}
         <Switch
           checked={checked}
@@ -50,7 +48,11 @@ function App() {
   }, [])
 
   // Main Password Component
-  const MainComponent = () => { return <> {checked ? <StructuredPassword isDropdownNeeded={isDropdownNeeded}/> : <RandomPassword isDropdownNeeded={isDropdownNeeded} />} </> }
+  const MainComponent = () => {
+    return <>
+      {checked ? <StructuredPassword isDropdownNeeded={isDropdownNeeded} /> : <RandomPassword isDropdownNeeded={isDropdownNeeded} />}
+    </>
+  }
 
   return (
     <>
@@ -58,21 +60,20 @@ function App() {
       <Toggle />
       <MainComponent />
       <br />
-      <div style={{ textAlign: "left" }}>
-        <h2>Tips for good passwords</h2>
-        <p>
-          Longer passwords are better.
-        </p>
-        <p>
-          Should contain all the four character types: <span style={{  }}><span className="upper">uppercase</span>, <span className="lower">lowercase</span>, <span className="int">numerals</span>, <span className="symbol">symbols</span></span>.
-        </p>
+      <div id="copy">
+        <h2>Difference between <b>passcode</b> and <b>passphrase</b></h2>
+        <p><b>Passcode: </b>a string of characters comprised of numbers, symbols, and mix cased letters.</p>
+        <p><b>Passphrase: </b>a string of words, separated by a symbol. Passphrases are easier to read, remember, and type. We append a number to each word to increase the strength of each passcode.</p>
+        <h2>Why you can trust Password Hawk</h2>
+        <p>We never log or store any of the passwords generated.</p>
+        <p>Even if we did we have no idea who you are, or where you would use our results.</p>
+        <p>Check out the source code over at <a href="https://www.github.com/FatCatLikesBeer/password-hawk" target="_blank">GitHub</a>.</p>
         <br />
         <br />
-        <br />
-        <p className="copy">
+        <p id="ps">
           This app was inspired by <a target="blank" href="https://www.passwordwolf.com">Password Wolf</a> and motivated by:
         </p>
-        <ul className="copy" style={{ textAlign: "left" }}>
+        <ul id="ps"style={{ textAlign: "left" }}>
           <li>A need for a portfolio piece</li>
           <li>A desire to excercise React</li>
           <li>A desire to learn TypeScript</li>
