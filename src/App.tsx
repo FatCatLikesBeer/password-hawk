@@ -4,6 +4,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import StructuredPassword from './components/StructuredPassword.tsx'
 import RandomPassword from './components/RandomPassword'
+import Footer from './components/Footer.tsx'
 import './App.css'
 
 function App() {
@@ -61,25 +62,25 @@ function App() {
       <MainComponent />
       <br />
       <div id="copy">
-        <h2>Difference between <b>passcode</b> and <b>passphrase</b></h2>
-        <p><b>Passcode: </b>a string of characters comprised of numbers, symbols, and mix cased letters.</p>
-        <p><b>Passphrase: </b>a string of words, separated by a symbol. Passphrases are easier to read, remember, and type. We append a number to each word to increase the strength of each passcode.</p>
-        <h2>Why you can trust Password Hawk</h2>
+        <h2>Why You Can Trust Password Hawk</h2>
         <p>We never log or store any of the passwords generated.</p>
         <p>Even if we did we have no idea who you are, or where you would use our results.</p>
-        <p>Check out the source code over at <a href="https://www.github.com/FatCatLikesBeer/password-hawk" target="_blank">GitHub</a>.</p>
+        <p>If you're technically inclined, you can verify these claims by checking our source code <a href="https://www.github.com/FatCatLikesBeer/password-hawk" target="_blank">GitHub</a>.</p>
+        <h2>Resources on Password Security</h2>
+        <p><a href="https://www.passwordmonster.com" target="_blank">Password Monster</a>: Test your password strength.</p>
+        <p><a href="https://passwordbits.com/dictionary-words-weaken-passwords/" target="_blank">Password Bits article</a>: Does Adding Dictionary Words to Passwords Weaken Them? (spoiler, no, as long as you do it the way Password Monster does it).</p>
+        <p><a href="https://xkcd.com/936/" target="_blank">xkdc Password Strength</a>: longer passphrases are easier to remember and harder to crack than shorter, more complex passcodes.</p>
+        <p></p>
         <br />
         <br />
-        <p id="ps">
+        <p className="ps">
           This app was inspired by <a target="blank" href="https://www.passwordwolf.com">Password Wolf</a> and motivated by:
         </p>
-        <ul id="ps"style={{ textAlign: "left" }}>
-          <li>A need for a portfolio piece</li>
-          <li>A desire to excercise React</li>
-          <li>A desire to learn TypeScript</li>
-          <li>A desire to build things</li>
+        <ul className="ps">
+          <li>I recently completed a course on reactjs and wanted to keep making stuff</li>
         </ul>
       </div>
+      <Footer />
     </>
   )
 }

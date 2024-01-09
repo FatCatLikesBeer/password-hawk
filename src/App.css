@@ -117,7 +117,7 @@ button {
   width: 65vw;
   max-width: 950px;
   text-align: left;
-  padding-top: 35vh;
+  padding: 25vh 0px 80px;
   transition: padding 0.3s ease-in-out;
 }
 
@@ -130,9 +130,14 @@ button {
   margin: 8px 0px;
 }
 
-#ps {
+.ps {
   color: grey;
   font-size: 10pt;
+}
+
+#footer {
+  padding: 20px 0px 0px;
+  color: gray;
 }
 
 @media ( min-height: 900px ) {
