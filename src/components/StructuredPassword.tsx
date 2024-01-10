@@ -94,10 +94,32 @@ export default function StructuredPassword(props) {
     setIsDropdownOpen(false);
   }
 
+  // Press y to copy to clipboard logic
+  const copyToClipboard = () => {
+    var textArea = document.createElement('textArea');
+    textArea.value = passwordAsString;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+  }
+
   // Run generator on page load and when options change
   useEffect(() => {
     generateAndSet();
   }, [numberOfWords, useSymbols, useNumbers, useMixed]);
+
+  // Press y to copy
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === "y") {copyToClipboard()};
+      if (event.key === "m") {generateAndSet()};
+    }
+    document.addEventListener('keydown', handleKeyPress);
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    }
+  }, [passwordAsString])
 
   return (
     <div className="mainContainer">

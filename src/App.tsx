@@ -68,7 +68,7 @@ function App() {
         <p>If you're technically inclined, you can verify these claims by checking our source code <a href="https://www.github.com/FatCatLikesBeer/password-hawk" target="_blank">GitHub</a>.</p>
         <h2>Resources on Password Security</h2>
         <p><a href="https://www.passwordmonster.com" target="_blank">Password Monster</a>: Test your password strength.</p>
-        <p><a href="https://passwordbits.com/dictionary-words-weaken-passwords/" target="_blank">Password Bits article</a>: Does Adding Dictionary Words to Passwords Weaken Them? (spoiler, no, as long as you do it the way Password Monster does it).</p>
+        <p><a href="https://passwordbits.com/dictionary-words-weaken-passwords/" target="_blank">Password Bits article</a>: Does Adding Dictionary Words to Passwords Weaken Them? (spoiler, no, as long as you do it the way Password Hawk does it).</p>
         <p><a href="https://xkcd.com/936/" target="_blank">xkdc Password Strength</a>: longer passphrases are easier to remember and harder to crack than shorter, more complex passcodes.</p>
         <p></p>
         <br />
