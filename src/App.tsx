@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography'
 import StructuredPassword from './components/StructuredPassword.tsx'
 import RandomPassword from './components/RandomPassword'
 import Footer from './components/Footer.tsx'
+import Tips from './components/Tips.tsx'
 import './App.css'
 
 function App() {
@@ -56,10 +57,22 @@ function App() {
     </>
   }
 
+  // Toggle between main components using the 't' key
+  useEffect(() => {
+    const handleKeydown = (event) => {
+      if (event.key === 't') { setChecked(!checked); }
+    }
+    document.addEventListener('keydown', handleKeydown);
+    return () => {
+      document.removeEventListener('keydown', handleKeydown);
+    }
+  })
+
   return (
     <>
       <Header />
       <Toggle />
+      <Tips />
       <MainComponent />
       <br />
       <div id="copy">

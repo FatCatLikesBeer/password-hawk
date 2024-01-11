@@ -9,6 +9,7 @@ import generateWord from '../assets/wordGenerator.tsx'
 import generateNumber from '../assets/numberGenerator.tsx'
 import generateCombo from '../assets/comboGenerator.tsx'
 import copyToClipboard from '../assets/keydownToClipboard.tsx'
+import keyDownFeedback from '../assets/keyDownFeedback.tsx'
 
 // Structured Password Component
 export default function StructuredPassword(props) {
@@ -66,15 +67,6 @@ export default function StructuredPassword(props) {
 
   const passwordAsString = password.join("")
 
-  // The button component that calls the generator
-  const GeneratorButton = () => {
-    return (
-      <>
-        <button className="button" onClick={generateAndSet}>Make Passphrase</button>
-      </>
-    );
-  }
-
   // Takes the value of the slider and modifies the numberOfWords value
   const handleSliderChange = (event, newValue) => {
     setNumberOfWords(newValue);
@@ -103,8 +95,10 @@ export default function StructuredPassword(props) {
   // Press y to copy
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (event.key === "y") {copyToClipboard(passwordAsString)};
-      if (event.key === "m") {generateAndSet()};
+      let genButton = document.getElementById('generator').firstChild;
+      let copyButton = document.getElementById('clipboard').firstChild;
+      if (event.key === "c") { keyDownFeedback(copyButton, 'gold', 100); copyToClipboard(passwordAsString); };
+      if (event.key === "m") { keyDownFeedback(genButton, 'salmon', 100) ;generateAndSet(); };
     }
     document.addEventListener('keydown', handleKeyPress);
     return () => {
@@ -112,12 +106,12 @@ export default function StructuredPassword(props) {
     }
   }, [passwordAsString])
 
-  return (
+    return (
     <div className="mainContainer">
       <div className="options">
         <div className="containerTitle">Options</div>
         <div className="optionsControls">
-          <div id="generator" onClick={dropdownFalse}><GeneratorButton /></div>
+          <div id="generator" onClick={dropdownFalse}><button onClick={generateAndSet}>Make Passphrase</button></div>
           <div id="clipboard"><Clipboard data-clipboard-text={passwordAsString} onClick={dropdownFalse}>{!isDropdownNeeded ? "Copy to Clipboard" : "Clipboard Copy"}</Clipboard></div>
           {/* The reason for this atrocious ternary is because of MaterialUI */}
           {/* The MUI Slider Component breaks if I put it in its own component. */}

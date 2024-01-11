@@ -4,6 +4,7 @@ import Slider from '@mui/material/Slider'
 import ModificationSwitch from './ModificationSwitch.tsx'
 import Clipboard from 'react-clipboard.js'
 import copyToClipboard from '../assets/keydownToClipboard.tsx'
+import keyDownFeedback from '../assets/keyDownFeedback.tsx'
 
 export default function RandomPassword(props) {
   const [minLength, maxLength] = [15, 55];
@@ -107,8 +108,10 @@ export default function RandomPassword(props) {
   // key down copy to clipboard
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (event.key === 'y') { copyToClipboard(passwordAsString) };
-      if (event.key === 'm') { passwordGenerator() };
+      const clipButton = document.getElementById('clipboard').firstChild;
+      const makeButton = document.getElementById('generator').firstChild;
+      if (event.key === 'c') { copyToClipboard(passwordAsString); keyDownFeedback(clipButton, "gold", 100) };
+      if (event.key === 'm') { passwordGenerator(); keyDownFeedback(makeButton, "salmon", 100) };
     }
     document.addEventListener('keydown', handleKeyPress);
     return () => {
@@ -121,7 +124,7 @@ export default function RandomPassword(props) {
       <div className="options">
         <div className="containerTitle">Options</div>
         <div className="optionsControls">
-          <div id="generator" onClick={dropdownFalse}><Button /></div>
+          <div id="generator" onClick={dropdownFalse}><button onClick={passwordGenerator}>Make Passcode</button></div>
           <div id="clipboard"><Clipboard data-clipboard-text={passwordAsString} onClick={dropdownFalse}>{!isDropdownNeeded ? "Copy to Clipboard" : "Clipboard Copy"}</Clipboard></div>
           {/* The reason for this atrocious ternary is because of MaterialUI */}
           {/* The MUI Slider Component breaks if I put it in its own component. */}

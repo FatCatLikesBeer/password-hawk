@@ -14,6 +14,18 @@ button {
   margin: 0px 0px 5px;
 }
 
+#clipboard * {
+  transition: color 0.25s, border 0.25s;
+}
+
+#generator * {
+  transition: color 0.25s, border 0.25s;
+}
+
+#testButton * {
+  transition: color 0.25s, border 0.25s;
+}
+
 .passwords {
   font-family: 'IBM Plex Mono', monospace;
   font-weight: bold;
@@ -224,5 +236,8 @@ button {
   }
   #dropdown {
     align-items: center;
+  }
+  #tips {
+    display: none;
   }
 }
