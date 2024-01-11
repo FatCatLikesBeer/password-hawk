@@ -8,6 +8,7 @@ import generateSymbol from '../assets/symbolGenerator.tsx'
 import generateWord from '../assets/wordGenerator.tsx'
 import generateNumber from '../assets/numberGenerator.tsx'
 import generateCombo from '../assets/comboGenerator.tsx'
+import copyToClipboard from '../assets/keydownToClipboard.tsx'
 
 // Structured Password Component
 export default function StructuredPassword(props) {
@@ -69,7 +70,7 @@ export default function StructuredPassword(props) {
   const GeneratorButton = () => {
     return (
       <>
-        <button className="button" onClick={generateAndSet}>{!isDropdownNeeded ? "Make Passphrase" : "Make Passphrase"}</button>
+        <button className="button" onClick={generateAndSet}>Make Passphrase</button>
       </>
     );
   }
@@ -94,16 +95,6 @@ export default function StructuredPassword(props) {
     setIsDropdownOpen(false);
   }
 
-  // Press y to copy to clipboard logic
-  const copyToClipboard = () => {
-    var textArea = document.createElement('textArea');
-    textArea.value = passwordAsString;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textArea);
-  }
-
   // Run generator on page load and when options change
   useEffect(() => {
     generateAndSet();
@@ -112,7 +103,7 @@ export default function StructuredPassword(props) {
   // Press y to copy
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (event.key === "y") {copyToClipboard()};
+      if (event.key === "y") {copyToClipboard(passwordAsString)};
       if (event.key === "m") {generateAndSet()};
     }
     document.addEventListener('keydown', handleKeyPress);
@@ -150,7 +141,7 @@ export default function StructuredPassword(props) {
               <div className="separator">
                 Separator Symbol ↓
                 <select
-                  title="Symbol"
+                  name="separator"
                   value={useSymbols}
                   onChange={handleSymbolChange}
                   style={{ width: 180 }}
@@ -170,9 +161,9 @@ export default function StructuredPassword(props) {
                 </select>
               </div>
               <div id="modSwitchContainer">
-                <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
-                <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixed} state={useMixed} />
-                <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
+                <ModificationSwitch name="toggle_number" title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
+                <ModificationSwitch name="toggle_case" title={"Use Mixed Case"} setState={setUseMixed} state={useMixed} />
+                <ModificationSwitch name="toggle_color" title={"Colorize Result"} setState={setUseColor} state={useColor} />
               </div>
             </div>
             : isDropdownOpen ?
@@ -195,7 +186,7 @@ export default function StructuredPassword(props) {
                 <div className="separator">
                   Separator Symbol ↓
                   <select
-                    title="Symbol"
+                    name="separator"
                     value={useSymbols}
                     onChange={handleSymbolChange}
                     style={{ width: 180 }}
@@ -215,9 +206,9 @@ export default function StructuredPassword(props) {
                   </select>
                 </div>
                 <div id="modSwitchContainer">
-                  <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
-                  <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixed} state={useMixed} />
-                  <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
+                  <ModificationSwitch name="toggle_number" title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
+                  <ModificationSwitch name="toggle_case" title={"Use Mixed Case"} setState={setUseMixed} state={useMixed} />
+                  <ModificationSwitch name="toggle_color" title={"Colorize Result"} setState={setUseColor} state={useColor} />
                 </div>
               </div> : "" }
           {/* Glorious End of atrocious ternary */}

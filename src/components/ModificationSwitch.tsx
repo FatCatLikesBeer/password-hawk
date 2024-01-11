@@ -14,6 +14,7 @@ export default function ModificationSwitch(props) {
           checked={props.state}
           onChange={onChange}
           size="large"
+          name={props.name}
         />
         {props.title}
       </div>

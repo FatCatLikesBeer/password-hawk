@@ -26,6 +26,7 @@ function App() {
           checked={checked}
           onChange={toggleLogic}
           size="large"
+          name="main_toggle"
         />
         Structured Passphrase
       </div>

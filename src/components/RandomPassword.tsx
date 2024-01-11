@@ -3,6 +3,7 @@ import { unstructuredParser } from '../assets/passwordParser.tsx'
 import Slider from '@mui/material/Slider'
 import ModificationSwitch from './ModificationSwitch.tsx'
 import Clipboard from 'react-clipboard.js'
+import copyToClipboard from '../assets/keydownToClipboard.tsx'
 
 export default function RandomPassword(props) {
   const [minLength, maxLength] = [15, 55];
@@ -71,7 +72,7 @@ export default function RandomPassword(props) {
   const passwordList = unstructuredParser(password, useColor);
 
   // Turns the password useState object (which exists as a list) into a string
-  const passwordWord = password.join("")
+  const passwordAsString = password.join("")
 
   // Component: Displays the parsed password
   const PasswordDisplay = () => {
@@ -103,13 +104,25 @@ export default function RandomPassword(props) {
     passwordGenerator();
   }, [useSymbols, useNumbers, useMixedCase, passwordLength]);
 
+  // key down copy to clipboard
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === 'y') { copyToClipboard(passwordAsString) };
+      if (event.key === 'm') { passwordGenerator() };
+    }
+    document.addEventListener('keydown', handleKeyPress);
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress)
+    }
+  }, [passwordAsString]);
+
   return (
     <div className="mainContainer">
       <div className="options">
         <div className="containerTitle">Options</div>
         <div className="optionsControls">
           <div id="generator" onClick={dropdownFalse}><Button /></div>
-          <div id="clipboard"><Clipboard data-clipboard-text={passwordWord} onClick={dropdownFalse}>{!isDropdownNeeded ? "Copy to Clipboard" : "Clipboard Copy"}</Clipboard></div>
+          <div id="clipboard"><Clipboard data-clipboard-text={passwordAsString} onClick={dropdownFalse}>{!isDropdownNeeded ? "Copy to Clipboard" : "Clipboard Copy"}</Clipboard></div>
           {/* The reason for this atrocious ternary is because of MaterialUI */}
           {/* The MUI Slider Component breaks if I put it in its own component. */}
           {!isDropdownNeeded ?
@@ -130,10 +143,10 @@ export default function RandomPassword(props) {
                 />
               </div>
               <div id="modSwitchContainer">
-                <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
-                <ModificationSwitch title={"Use Symbols"} setState={setUseSymbols} state={useSymbols} />
-                <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixedCase} state={useMixedCase} />
-                <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
+                <ModificationSwitch name="toggle_number" title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
+                <ModificationSwitch name="toggle_symbol" title={"Use Symbols"} setState={setUseSymbols} state={useSymbols} />
+                <ModificationSwitch name="toggle_case" title={"Use Mixed Case"} setState={setUseMixedCase} state={useMixedCase} />
+                <ModificationSwitch name="toggle_color" title={"Colorize Result"} setState={setUseColor} state={useColor} />
               </div>
             </div>
             : isDropdownOpen ?
@@ -154,10 +167,10 @@ export default function RandomPassword(props) {
                   />
                 </div>
                 <div id="modSwitchContainer">
-                  <ModificationSwitch title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
-                  <ModificationSwitch title={"Use Symbols"} setState={setUseSymbols} state={useSymbols} />
-                  <ModificationSwitch title={"Use Mixed Case"} setState={setUseMixedCase} state={useMixedCase} />
-                  <ModificationSwitch title={"Colorize Result"} setState={setUseColor} state={useColor} />
+                <ModificationSwitch name="toggle_number" title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
+                <ModificationSwitch name="toggle_symbol" title={"Use Symbols"} setState={setUseSymbols} state={useSymbols} />
+                <ModificationSwitch name="toggle_case" title={"Use Mixed Case"} setState={setUseMixedCase} state={useMixedCase} />
+                <ModificationSwitch name="toggle_color" title={"Colorize Result"} setState={setUseColor} state={useColor} />
                 </div>
               </div> : ""}
           {/* Glorious End of atrocious ternary */}
