@@ -70,9 +70,9 @@ function App() {
 
   return (
     <>
+      <Tips />
       <Header />
       <Toggle />
-      <Tips />
       <MainComponent />
       <br />
       <div id="copy">

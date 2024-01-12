@@ -152,6 +152,10 @@ button {
   color: gray;
 }
 
+#tooltip {
+  transition: top 0.1s;
+}
+
 @media ( min-height: 900px ) {
   #copy {
     padding-top: 0px;
