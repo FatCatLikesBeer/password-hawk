@@ -154,6 +154,8 @@ button {
 
 #tooltip {
   transition: top 0.1s;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 @media ( min-height: 900px ) {
@@ -166,6 +168,9 @@ button {
   .passwords {
     font-size: 15pt;
   }
+  #tooltip {
+    font-size: 10pt;
+  }
 }
 
 @media ( max-width: 800px ) {
@@ -175,7 +180,11 @@ button {
   #copy {
     width: 80vw;
   }
+  #tooltip {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
 }
+
 
 @media ( max-width: 650px ) {
   #root {
@@ -214,7 +223,6 @@ button {
   }
   .optionsControls {
     max-width: 350px;
-    width: 350px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -233,13 +241,18 @@ button {
   #generator, #clipboard{
     padding: 0px 4px;
   }
-  .separator, .slider {
+  .separator {
     min-width: 200px;
     max-width: 200px;
     width: 220px;
   }
+  .slider {
+    max-width: 280px;
+  }
   #dropdown {
+    display: grid;
     align-items: center;
+    justify-items: center;
   }
   #tips {
     display: none;

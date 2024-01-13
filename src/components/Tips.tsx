@@ -9,7 +9,7 @@ export default function Tips() {
     fontSize: "18px",
     textAlign: "right",
     position: "fixed",
-    top: "3px",
+    top: "6px",
     right: "0px",
     padding: "0px 8px 5px",
   }
@@ -17,8 +17,11 @@ export default function Tips() {
   const toolTipStyle = {
     textAlign: "left",
     position: "fixed",
-    top: "-200px",
+    top: "-210px",
     right: "30px",
+    border: "solid 3px grey",
+    borderRadius: "10px",
+    padding: "8px",
   }
 
   const handleMouseEnter = () => {
@@ -50,8 +53,8 @@ export default function Tips() {
   // Thing that controls the visibility
   useEffect(() => {
     const tooltip = document.getElementById('tooltip')
-    if (display === false) { tooltip.style.top = "-200px" }
-    if (display === true) { tooltip.style.top = "3px" }
+    if (display === false) { tooltip.style.top = "-210px" }
+    if (display === true) { tooltip.style.top = "12px" }
   }, [display]);
 
   // Display tooltip temporarly when page loads
@@ -66,11 +69,7 @@ export default function Tips() {
       <div id="tips" style={style}>
         <span onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{fontWeight: "bold"}}>?</span>
         <div style={toolTipStyle} id="tooltip">
-          ------------------
-          <br />
-          Keyboard Shortcuts
-          <br />
-          ------------------
+          <span style={{fontWeight: "bold"}}>KEYBOARD SHORTCUTS</span>
           <br />
           T: Toggle
           <br />

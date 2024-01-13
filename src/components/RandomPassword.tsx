@@ -105,19 +105,21 @@ export default function RandomPassword(props) {
     passwordGenerator();
   }, [useSymbols, useNumbers, useMixedCase, passwordLength]);
 
-  // key down copy to clipboard
-  useEffect(() => {
-    const handleKeyPress = (event) => {
-      const clipButton = document.getElementById('clipboard').firstChild;
-      const makeButton = document.getElementById('generator').firstChild;
-      if (event.key === 'c') { copyToClipboard(passwordAsString); keyDownFeedback(clipButton, "gold", 100) };
-      if (event.key === 'm') { passwordGenerator(); keyDownFeedback(makeButton, "salmon", 100) };
-    }
-    document.addEventListener('keydown', handleKeyPress);
-    return () => {
-      document.removeEventListener('keydown', handleKeyPress)
-    }
-  }, [passwordAsString]);
+  // Keyboard Shortcuts
+  const Shortcuts = () => {
+    useEffect(() => {
+      const handleKeyPress = (event) => {
+        const clipButton = document.getElementById('clipboard').firstChild;
+        const makeButton = document.getElementById('generator').firstChild;
+        if (event.key === 'c') { copyToClipboard(passwordAsString); keyDownFeedback(clipButton, "salmon", 100) };
+        if (event.key === 'm') { passwordGenerator(); keyDownFeedback(makeButton, "salmon", 100) };
+      }
+      document.addEventListener('keydown', handleKeyPress);
+      return () => {
+        document.removeEventListener('keydown', handleKeyPress)
+      }
+    }, [passwordAsString]);
+  }
 
   return (
     <div className="mainContainer">
@@ -130,6 +132,7 @@ export default function RandomPassword(props) {
           {/* The MUI Slider Component breaks if I put it in its own component. */}
           {!isDropdownNeeded ?
             <div id="dropdown">
+            <Shortcuts />
               <div className="slider">
                 Character Count ↓
                 <Slider
@@ -163,7 +166,7 @@ export default function RandomPassword(props) {
                     aria-label="Number Of Words"
                     defaultValue={passwordLength}
                     valueLabelDisplay="auto"
-                    style={{ width: 180 }}
+                    style={{ width: 280 }}
                     step={1}
                     min={minLength}
                     max={maxLength}

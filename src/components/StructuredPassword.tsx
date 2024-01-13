@@ -92,19 +92,21 @@ export default function StructuredPassword(props) {
     generateAndSet();
   }, [numberOfWords, useSymbols, useNumbers, useMixed]);
 
-  // Press y to copy
-  useEffect(() => {
-    const handleKeyPress = (event) => {
-      let genButton = document.getElementById('generator').firstChild;
-      let copyButton = document.getElementById('clipboard').firstChild;
-      if (event.key === "c") { keyDownFeedback(copyButton, 'gold', 100); copyToClipboard(passwordAsString); };
-      if (event.key === "m") { keyDownFeedback(genButton, 'salmon', 100) ;generateAndSet(); };
-    }
-    document.addEventListener('keydown', handleKeyPress);
-    return () => {
-      document.removeEventListener('keydown', handleKeyPress);
-    }
-  }, [passwordAsString])
+  // Keyboard shortcuts M & C
+  const Shortcuts = () => {
+    useEffect(() => {
+      const handleKeyPress = (event) => {
+        let genButton = document.getElementById('generator').firstChild;
+        let copyButton = document.getElementById('clipboard').firstChild;
+        if (event.key === "c") { keyDownFeedback(copyButton, 'salmon', 100); copyToClipboard(passwordAsString); };
+        if (event.key === "m") { keyDownFeedback(genButton, 'salmon', 100) ;generateAndSet(); };
+      }
+      document.addEventListener('keydown', handleKeyPress);
+      return () => {
+        document.removeEventListener('keydown', handleKeyPress);
+      }
+    }, [passwordAsString])
+  }
 
     return (
     <div className="mainContainer">
@@ -117,6 +119,7 @@ export default function StructuredPassword(props) {
           {/* The MUI Slider Component breaks if I put it in its own component. */}
           {!isDropdownNeeded ?
             <div id="dropdown">
+              <Shortcuts />
               <div className="slider">
                 Number of Words ↓
                 <Slider
@@ -170,7 +173,7 @@ export default function StructuredPassword(props) {
                     onChange={handleSliderChange}
                     aria-label="Number Of Words"
                     valueLabelDisplay="auto"
-                    style={{ width: 180 }}
+                    style={{ width: 280 }}
                     step={1}
                     marks
                     min={minLength}

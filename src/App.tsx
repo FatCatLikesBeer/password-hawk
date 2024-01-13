@@ -41,10 +41,8 @@ function App() {
 
   // Call handleResize when window resizes
   useEffect(() => {
-    // Add event listener when component mounts
     window.addEventListener('resize', handleResize);
 
-    // Clean up the event listener when the component unmounts
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -58,18 +56,21 @@ function App() {
   }
 
   // Toggle between main components using the 't' key
-  useEffect(() => {
-    const handleKeydown = (event) => {
-      if (event.key === 't') { setChecked(!checked); }
-    }
-    document.addEventListener('keydown', handleKeydown);
-    return () => {
-      document.removeEventListener('keydown', handleKeydown);
-    }
-  })
+  const Shortcut = () => {
+    useEffect(() => {
+      const handleKeydown = (event) => {
+        if (event.key === 't') { setChecked(!checked); }
+      }
+      document.addEventListener('keydown', handleKeydown);
+      return () => {
+        document.removeEventListener('keydown', handleKeydown);
+      }
+    });
+  }
 
   return (
     <>
+      {!isDropdownNeeded && <Shortcut />}
       <Tips />
       <Header />
       <Toggle />
