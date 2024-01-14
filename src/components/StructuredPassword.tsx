@@ -24,7 +24,7 @@ export default function StructuredPassword(props) {
   const isDropdownNeeded = props.isDropdownNeeded;
 
   //--------------- Main Password Generator Function ----------------- //
-  const generateAndSet = () => {
+  const generateAndSet = (flag) => {
     let result = [];
     let symbol = "";
     switch (useSymbols) {
@@ -49,7 +49,7 @@ export default function StructuredPassword(props) {
       result = useMixed ? result : true;
       return result;
     }
-    // Add the first "word"
+   // Add the first "word"
     result.push(includeNumber());
     result.push(generateWord(randomValue(), randomBool()));
     // Add more words based on numberOfWords
@@ -59,6 +59,7 @@ export default function StructuredPassword(props) {
       result.push(generateWord(randomValue(), randomBool()));
     }
     setPassword(result);
+    if (flag) { return result.join("") };
   }
 
   // Parses the password state variable into a
@@ -92,14 +93,22 @@ export default function StructuredPassword(props) {
     generateAndSet();
   }, [numberOfWords, useSymbols, useNumbers, useMixed]);
 
-  // Keyboard shortcuts M & C
+  // Keyboard shortcuts M, C, Y
   const Shortcuts = () => {
     useEffect(() => {
       const handleKeyPress = (event) => {
         let genButton = document.getElementById('generator').firstChild;
         let copyButton = document.getElementById('clipboard').firstChild;
-        if (event.key === "c") { keyDownFeedback(copyButton, 'salmon', 100); copyToClipboard(passwordAsString); };
-        if (event.key === "m") { keyDownFeedback(genButton, 'salmon', 100) ;generateAndSet(); };
+        if (event.key === "m") { keyDownFeedback(genButton, 'gold'); generateAndSet(); };
+        if (event.key === "c") {
+          keyDownFeedback(copyButton, 'gold');
+          copyToClipboard(passwordAsString);
+        };
+        if (event.key === "y") {
+          keyDownFeedback(genButton, 'gold');
+          keyDownFeedback(copyButton, 'gold');
+          copyToClipboard(generateAndSet(true));
+        };
       }
       document.addEventListener('keydown', handleKeyPress);
       return () => {

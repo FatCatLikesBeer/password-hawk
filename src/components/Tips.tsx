@@ -8,7 +8,7 @@ export default function Tips() {
     color: "gold",
     fontSize: "18px",
     textAlign: "right",
-    position: "fixed",
+    position: "absolute",
     top: "6px",
     right: "0px",
     padding: "0px 8px 5px",
@@ -78,6 +78,8 @@ export default function Tips() {
           C: Copy to clipboard
           <br />
           ?: Show this tooltip
+          <br />
+          Y: Make new and copy
         </div>
       </div>
     </>

@@ -60,12 +60,13 @@ export default function RandomPassword(props) {
   }
 
   // Generates the password (stores a list of random characters to the setPassword hook)
-  function passwordGenerator() {
+  function passwordGenerator(flag) {
     let result = [];
     for (let i = 0; i < passwordLength; i++) {
       result.push(randomLetterGenerator(theList))
     }
     setPassword(result);
+    if (flag) { return result.join("") }
   }
 
   // Parses the password state variable into a 
@@ -111,8 +112,13 @@ export default function RandomPassword(props) {
       const handleKeyPress = (event) => {
         const clipButton = document.getElementById('clipboard').firstChild;
         const makeButton = document.getElementById('generator').firstChild;
-        if (event.key === 'c') { copyToClipboard(passwordAsString); keyDownFeedback(clipButton, "salmon", 100) };
-        if (event.key === 'm') { passwordGenerator(); keyDownFeedback(makeButton, "salmon", 100) };
+        if (event.key === 'm') { passwordGenerator(); keyDownFeedback(makeButton, "gold") };
+        if (event.key === 'c') { copyToClipboard(passwordAsString); keyDownFeedback(clipButton, "gold") };
+        if (event.key === "y") {
+          keyDownFeedback(clipButton, 'gold');
+          keyDownFeedback(makeButton, 'gold');
+          copyToClipboard(passwordGenerator(true));
+        };
       }
       document.addEventListener('keydown', handleKeyPress);
       return () => {

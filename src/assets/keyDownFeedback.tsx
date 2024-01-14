@@ -1,5 +1,6 @@
+const timeout = 250;
 
-const keyDownFeedback = (targetElement, color, timeout) => {
+const keyDownFeedback = (targetElement, color) => {
   targetElement.style.color = color;
   targetElement.style.borderColor = color;
   setTimeout(() => {
