@@ -71,15 +71,15 @@ export default function Tips() {
         <div style={toolTipStyle} id="tooltip">
           <span style={{fontWeight: "bold"}}>KEYBOARD SHORTCUTS</span>
           <br />
-          T: Toggle
+          T: Toggle style
           <br />
           M: Make new password
           <br />
           C: Copy to clipboard
           <br />
-          ?: Show this tooltip
+          Y: Make new & copy
           <br />
-          Y: Make new and copy
+          ?: Show this tooltip
         </div>
       </div>
     </>
