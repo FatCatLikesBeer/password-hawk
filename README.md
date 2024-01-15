@@ -1,4 +1,12 @@
-# React + TypeScript + Vite
+# Password Hawk
+
+![Screen shot](./public/hawk_site.jpeg "Website")
+
+Password Hawk is a password generator with two styles: passphrases and passcodes.
+
+The goal of Password Hawk is to generate passwords, load quick, look good, swiftly return results, have relatively low control complexity.
+
+## React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
