@@ -21,6 +21,7 @@ export default function StructuredPassword(props) {
   const [useMixed, setUseMixed] = useState(true);
   const [useColor, setUseColor] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [mixedCaseValidator, setMixedCaseValidator] = useState(false);
   const isDropdownNeeded = props.isDropdownNeeded;
 
   //--------------- Main Password Generator Function ----------------- //
@@ -37,30 +38,32 @@ export default function StructuredPassword(props) {
       default:
         symbol = `${useSymbols}`;
     }
-    const includeNumber = useNumbers ? generateNumber : ()=>{return "";};
+    const appendNumber = useNumbers ? generateNumber : ()=>{return "";};
     // Return a random int from 4 to 8 (both inclusive)
     function randomValue() {
       const result = Math.floor(Math.random() * 5) + 4;
       return result;
     }
     // Return a true/false, 50-50 odds
-    function randomBool() {
+    function caseSetter() {
       let result = Math.random() > 0.5 ? true : false;
       result = useMixed ? result : true;
       return result;
     }
-   // Add the first "word"
-    result.push(includeNumber());
-    result.push(generateWord(randomValue(), randomBool()));
+    // Add the first "word"
+    result.push(appendNumber());
+    result.push(generateWord(randomValue(), caseSetter()));
     // Add more words based on numberOfWords
     for (let i = 1; i < numberOfWords; i++) {
       result.push(symbol);
-      result.push(includeNumber());
-      result.push(generateWord(randomValue(), randomBool()));
+      result.push(appendNumber());
+      result.push(generateWord(randomValue(), caseSetter()));
     }
     setPassword(result);
     if (flag) { return result.join("") };
   }
+
+  // Mixed Case Validator
 
   // Parses the password state variable into a
   // a list of decorated HTML elements.

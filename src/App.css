@@ -15,11 +15,11 @@ button {
 }
 
 #clipboard * {
-  transition: color 0.25s ease-in-out, border 0.25s ease-in-out;
+  transition: color 0.25s, border 0.25s;
 }
 
 #generator * {
-  transition: color 0.25s ease-in-out, border 0.25s ease-in-out;
+  transition: color 0.25s, border 0.25s;
 }
 
 .passwords {

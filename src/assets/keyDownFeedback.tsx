@@ -1,4 +1,4 @@
-const timeout = 250;
+const timeout = 200;
 
 const keyDownFeedback = (targetElement, color) => {
   targetElement.style.color = color;
