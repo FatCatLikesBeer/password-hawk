@@ -3,7 +3,6 @@ import { structuredParser } from '../assets/passwordParser.tsx'
 import ModificationSwitch from './ModificationSwitch.tsx'
 import Switch from '@mui/material/Switch'
 import Slider from '@mui/material/Slider'
-import Clipboard from 'react-clipboard.js'
 import generateSymbol from '../assets/symbolGenerator.tsx'
 import generateWord from '../assets/wordGenerator.tsx'
 import generateNumber from '../assets/numberGenerator.tsx'
@@ -100,8 +99,8 @@ export default function StructuredPassword(props) {
   const Shortcuts = () => {
     useEffect(() => {
       const handleKeyPress = (event) => {
-        let genButton = document.getElementById('generator').firstChild;
-        let copyButton = document.getElementById('clipboard').firstChild;
+        let genButton = document.getElementById('generator');
+        let copyButton = document.getElementById('clipboard');
         if (event.key === "m") { keyDownFeedback(genButton, 'gold'); generateAndSet(); };
         if (event.key === "c") {
           keyDownFeedback(copyButton, 'gold');
@@ -120,13 +119,25 @@ export default function StructuredPassword(props) {
     }, [passwordAsString])
   }
 
+  // Functions for the generator button
+  const handleGeneratorClick = () => {
+    dropdownFalse();
+    generateAndSet();
+  }
+
+  // Functions for the clipboard button
+  const handleCopyClick = () => {
+    dropdownFalse();
+    copyToClipboard(passwordAsString);
+  }
+
     return (
     <div className="mainContainer">
       <div className="options">
         <div className="containerTitle">Options</div>
         <div className="optionsControls">
-          <div id="generator" onClick={dropdownFalse}><button onClick={generateAndSet}>Make Passphrase</button></div>
-          <div id="clipboard"><Clipboard data-clipboard-text={passwordAsString} onClick={dropdownFalse}>{!isDropdownNeeded ? "Copy to Clipboard" : "Clipboard Copy"}</Clipboard></div>
+          <button id="generator" onClick={handleGeneratorClick}>Make Passphrase</button>
+          <button id="clipboard" onClick={handleCopyClick}>{!isDropdownNeeded ? "Copy to Clipboard" : "Clipboard Copy"}</button>
           {/* The reason for this atrocious ternary is because of MaterialUI */}
           {/* The MUI Slider Component breaks if I put it in its own component. */}
           {!isDropdownNeeded ?

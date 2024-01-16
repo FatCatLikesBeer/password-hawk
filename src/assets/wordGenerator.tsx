@@ -1,6 +1,4 @@
 import { useEffect } from 'react';
-import two from '../assets/2_letter_words.tsx'
-import three from '../assets/3_letter_words.tsx'
 import four from '../assets/4_letter_words.tsx'
 import five from '../assets/5_letter_words.tsx'
 import six from '../assets/6_letter_words.tsx'

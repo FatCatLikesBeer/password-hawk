@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { unstructuredParser } from '../assets/passwordParser.tsx'
 import Slider from '@mui/material/Slider'
 import ModificationSwitch from './ModificationSwitch.tsx'
-import Clipboard from 'react-clipboard.js'
 import copyToClipboard from '../assets/keydownToClipboard.tsx'
 import keyDownFeedback from '../assets/keyDownFeedback.tsx'
 
@@ -60,7 +59,7 @@ export default function RandomPassword(props) {
   }
 
   // Generates the password (stores a list of random characters to the setPassword hook)
-  function passwordGenerator(flag) {
+  const passwordGenerator = (flag) => {
     let result = [];
     for (let i = 0; i < passwordLength; i++) {
       result.push(randomLetterGenerator(theList))
@@ -110,8 +109,8 @@ export default function RandomPassword(props) {
   const Shortcuts = () => {
     useEffect(() => {
       const handleKeyPress = (event) => {
-        const clipButton = document.getElementById('clipboard').firstChild;
-        const makeButton = document.getElementById('generator').firstChild;
+        const clipButton = document.getElementById('clipboard');
+        const makeButton = document.getElementById('generator');
         if (event.key === 'm') { passwordGenerator(); keyDownFeedback(makeButton, "gold") };
         if (event.key === 'c') { copyToClipboard(passwordAsString); keyDownFeedback(clipButton, "gold") };
         if (event.key === "y") {
@@ -127,13 +126,25 @@ export default function RandomPassword(props) {
     }, [passwordAsString]);
   }
 
+  // Functions for the generator button
+  const handleGeneratorClick = () => {
+    dropdownFalse();
+    passwordGenerator();
+  }
+
+  // Functions for the clipboard button
+  const handleCopyClick = () => {
+    dropdownFalse();
+    copyToClipboard(passwordAsString);
+  }
+
   return (
     <div className="mainContainer">
       <div className="options">
         <div className="containerTitle">Options</div>
         <div className="optionsControls">
-          <div id="generator" onClick={dropdownFalse}><button onClick={passwordGenerator}>Make Passcode</button></div>
-          <div id="clipboard"><Clipboard data-clipboard-text={passwordAsString} onClick={dropdownFalse}>{!isDropdownNeeded ? "Copy to Clipboard" : "Clipboard Copy"}</Clipboard></div>
+          <button id="generator" onClick={handleGeneratorClick}>Make Passcode</button>
+          <button id="clipboard" onClick={handleCopyClick}>{!isDropdownNeeded ? "Copy to Clipboard" : "Clipboard Copy"}</button>
           {/* The reason for this atrocious ternary is because of MaterialUI */}
           {/* The MUI Slider Component breaks if I put it in its own component. */}
           {!isDropdownNeeded ?
