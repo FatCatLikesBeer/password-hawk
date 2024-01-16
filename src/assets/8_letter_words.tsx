@@ -1,4 +1,4 @@
-const eight = [
+const eight: string[] = [
 "AARDVARK",
 "AARDWOLF",
 "AASVOGEL",

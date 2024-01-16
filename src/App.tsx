@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react'
 import Switch from '@mui/material/Switch'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 import StructuredPassword from './components/StructuredPassword.tsx'
 import RandomPassword from './components/RandomPassword'
 import Footer from './components/Footer.tsx'
@@ -26,7 +24,6 @@ function App() {
         <Switch
           checked={checked}
           onChange={toggleLogic}
-          size="large"
           name="main_toggle"
         />
         Structured Passphrase
@@ -56,21 +53,20 @@ function App() {
   }
 
   // Toggle between main components using the 't' key
-  const Shortcut = () => {
     useEffect(() => {
-      const handleKeydown = (event) => {
+    if (!isDropdownNeeded) {
+      const handleKeydown = (event: KeyboardEvent) => {
         if (event.key === 't') { setChecked(!checked); }
       }
       document.addEventListener('keydown', handleKeydown);
       return () => {
         document.removeEventListener('keydown', handleKeydown);
       }
+    }
     });
-  }
 
   return (
     <>
-      {!isDropdownNeeded && <Shortcut />}
       <Tips />
       <Header />
       <Toggle />

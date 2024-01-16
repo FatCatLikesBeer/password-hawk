@@ -1,4 +1,4 @@
-const four: array = [
+const four: string[] = [
 "AAHS",
 "AALS",
 "ABAC",

@@ -1,4 +1,4 @@
-const six: array = [
+const six: string[] = [
 "AAHING",
 "AALIIS",
 "AARRGH",

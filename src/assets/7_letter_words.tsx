@@ -1,4 +1,4 @@
-const seven = [
+const seven: string[] = [
 "AARRGHH",
 "ABACTOR",
 "ABALONE",

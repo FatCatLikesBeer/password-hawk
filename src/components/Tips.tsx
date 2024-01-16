@@ -3,27 +3,6 @@ import { useState, useEffect } from 'react';
 export default function Tips() {
   const [display, setDisplay] = useState(true);
 
-  const style = {
-    fontFamily: "monospace",
-    color: "gold",
-    fontSize: "18px",
-    textAlign: "right",
-    position: "absolute",
-    top: "6px",
-    right: "0px",
-    padding: "0px 8px 5px",
-  }
-
-  const toolTipStyle = {
-    textAlign: "left",
-    position: "fixed",
-    top: "-210px",
-    right: "30px",
-    border: "solid 3px grey",
-    borderRadius: "10px",
-    padding: "8px",
-  }
-
   const handleMouseEnter = () => {
     setDisplay(true);
   }
@@ -34,10 +13,10 @@ export default function Tips() {
 
   // Press ? to toggle tooltip
   useEffect(() => {
-    const qMarkDown = (event) => {
+    const qMarkDown = (event: any) => {
       if (event.key === '?') {setDisplay(true);};
     }
-    const qMarkUp = (event) => {
+    const qMarkUp = (event: any) => {
       if (event.key === '?') {setDisplay(false);};
       if (event.key === '/') {setDisplay(false);};
     }
@@ -52,7 +31,8 @@ export default function Tips() {
 
   // Thing that controls the visibility
   useEffect(() => {
-    const tooltip = document.getElementById('tooltip')
+    // The '!' at the end of the following line is to let TS know that this element will never be null
+    const tooltip: HTMLElement = document.getElementById('tooltip')!;
     if (display === false) { tooltip.style.top = "-210px" }
     if (display === true) { tooltip.style.top = "12px" }
   }, [display]);
@@ -66,9 +46,9 @@ export default function Tips() {
 
   return (
     <>
-      <div id="tips" style={style}>
+      <div id="tips">
         <span onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{fontWeight: "bold"}}>?</span>
-        <div style={toolTipStyle} id="tooltip">
+        <div id="tooltip">
           <span style={{fontWeight: "bold"}}>KEYBOARD SHORTCUTS</span>
           <br />
           T: Toggle style

@@ -1,17 +1,15 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { structuredParser } from '../assets/passwordParser.tsx'
 import ModificationSwitch from './ModificationSwitch.tsx'
-import Switch from '@mui/material/Switch'
 import Slider from '@mui/material/Slider'
 import generateSymbol from '../assets/symbolGenerator.tsx'
 import generateWord from '../assets/wordGenerator.tsx'
 import generateNumber from '../assets/numberGenerator.tsx'
-import generateCombo from '../assets/comboGenerator.tsx'
 import copyToClipboard from '../assets/keydownToClipboard.tsx'
 import keyDownFeedback from '../assets/keyDownFeedback.tsx'
 
 // Structured Password Component
-export default function StructuredPassword(props) {
+export default function StructuredPassword(props: any) {
   const [minLength, maxLength] = [3, 25];
   const [password, setPassword] = useState(["1", "PASS", "-", "2", "word", "-", "3", "HAWK"]);
   const [numberOfWords, setNumberOfWords] = useState(5);
@@ -20,11 +18,10 @@ export default function StructuredPassword(props) {
   const [useMixed, setUseMixed] = useState(true);
   const [useColor, setUseColor] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [mixedCaseValidator, setMixedCaseValidator] = useState(false);
   const isDropdownNeeded = props.isDropdownNeeded;
 
   //--------------- Main Password Generator Function ----------------- //
-  const generateAndSet = (flag) => {
+  const generateAndSet = (flag: boolean = false): any => {
     let result = [];
     let symbol = "";
     switch (useSymbols) {
@@ -59,7 +56,7 @@ export default function StructuredPassword(props) {
       result.push(generateWord(randomValue(), caseSetter()));
     }
     setPassword(result);
-    if (flag) { return result.join("") };
+    if (flag === true) { return result.join("") };
   }
 
   // Mixed Case Validator
@@ -71,12 +68,12 @@ export default function StructuredPassword(props) {
   const passwordAsString = password.join("")
 
   // Takes the value of the slider and modifies the numberOfWords value
-  const handleSliderChange = (event, newValue) => {
-    setNumberOfWords(newValue);
+  const handleSliderChange = (_event: any, value: any) => {
+    setNumberOfWords(value);
   };
 
   // Changes the symbol based on selection
-  const handleSymbolChange = (event) => {
+  const handleSymbolChange = (event: any) => {
     setUseSymbols(event.target.value);
   };
 
@@ -96,11 +93,11 @@ export default function StructuredPassword(props) {
   }, [numberOfWords, useSymbols, useNumbers, useMixed]);
 
   // Keyboard shortcuts M, C, Y
-  const Shortcuts = () => {
     useEffect(() => {
-      const handleKeyPress = (event) => {
-        let genButton = document.getElementById('generator');
-        let copyButton = document.getElementById('clipboard');
+    if (!isDropdownNeeded) {
+      const handleKeyPress = (event: KeyboardEvent) => {
+        let genButton: HTMLElement = document.getElementById('generator')!;
+        let copyButton: HTMLElement = document.getElementById('clipboard')!;
         if (event.key === "m") { keyDownFeedback(genButton, 'gold'); generateAndSet(); };
         if (event.key === "c") {
           keyDownFeedback(copyButton, 'gold');
@@ -116,8 +113,8 @@ export default function StructuredPassword(props) {
       return () => {
         document.removeEventListener('keydown', handleKeyPress);
       }
+    }
     }, [passwordAsString])
-  }
 
   // Functions for the generator button
   const handleGeneratorClick = () => {
@@ -142,7 +139,6 @@ export default function StructuredPassword(props) {
           {/* The MUI Slider Component breaks if I put it in its own component. */}
           {!isDropdownNeeded ?
             <div id="dropdown">
-              <Shortcuts />
               <div className="slider">
                 Number of Words ↓
                 <Slider
