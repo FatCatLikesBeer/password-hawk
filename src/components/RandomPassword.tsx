@@ -5,9 +5,9 @@ import ModificationSwitch from './ModificationSwitch.tsx'
 import copyToClipboard from '../assets/keydownToClipboard.tsx'
 import keyDownFeedback from '../assets/keyDownFeedback.tsx'
 
-export default function RandomPassword(props) {
+export default function RandomPassword(props: any) {
   const [minLength, maxLength] = [15, 55];
-  const [password, setPassword] = useState([]);
+  const [password, setPassword] = useState<string[]>([]);
   const [passwordLength, setPasswordLength] = useState(20)
   const [useColor, setUseColor] = useState(true);
   const [useNumbers, setUseNumbers] = useState(true);
@@ -21,13 +21,8 @@ export default function RandomPassword(props) {
   const symbols = ["+", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "?"];
   const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 
-  // Title Component
-  const Title = () => {
-    return <h2>Random Password</h2>
-  }
-
   // Picks a list of Characters to use based on the state of useNumbers and useSymbols
-  const listMaker = () => {
+  const listMaker = (): string[] => {
     let result = characters;
     if (useSymbols === true) { result.push(...symbols) };
     if (useNumbers === true) { result.push(...numbers) };
@@ -36,8 +31,8 @@ export default function RandomPassword(props) {
   const theList = listMaker();
 
   // Random Character Generator, randomly return upper or lower case version character
-  const randomLetterGenerator = (source) => {
-    let result;
+  const randomLetterGenerator = (source: string[]): string => {
+    let result: string;
 
     // Picks a character, any character.
     const resultUncased = () => {
@@ -59,8 +54,8 @@ export default function RandomPassword(props) {
   }
 
   // Generates the password (stores a list of random characters to the setPassword hook)
-  const passwordGenerator = (flag) => {
-    let result = [];
+  const passwordGenerator = (flag: boolean = false): any => {
+    let result: string[] = [];
     for (let i = 0; i < passwordLength; i++) {
       result.push(randomLetterGenerator(theList))
     }
@@ -68,7 +63,7 @@ export default function RandomPassword(props) {
     if (flag) { return result.join("") }
   }
 
-  // Parses the password state variable into a 
+  // Parses the password state variable into a
   // a list of decorated HTML elements.
   const passwordList = unstructuredParser(password, useColor);
 
@@ -81,20 +76,15 @@ export default function RandomPassword(props) {
   }
 
   // Takes the value of the slider and modifies the passwordLength value
-  const handleSliderChange = (event, newValue) => {
-    setPasswordLength(newValue);
+  const handleSliderChange = (_event: any, value: any) => {
+    setPasswordLength(value);
   };
-
-  // Component: Button that runs the password generator
-  const Button = () => {
-    return <button onClick={passwordGenerator}>Make Passcode</button>
-  }
 
   // Toggle Dropdown function
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-  //
+
   // Set's the dropdown state value to false
   const dropdownFalse = () => {
     setIsDropdownOpen(false);
@@ -106,11 +96,11 @@ export default function RandomPassword(props) {
   }, [useSymbols, useNumbers, useMixedCase, passwordLength]);
 
   // Keyboard Shortcuts
-  const Shortcuts = () => {
-    useEffect(() => {
-      const handleKeyPress = (event) => {
-        const clipButton = document.getElementById('clipboard');
-        const makeButton = document.getElementById('generator');
+  useEffect(() => {
+    if (!isDropdownNeeded) {
+      const handleKeyPress = (event: KeyboardEvent) => {
+        const clipButton: HTMLElement = document.getElementById('clipboard')!;
+        const makeButton: HTMLElement = document.getElementById('generator')!;
         if (event.key === 'm') { passwordGenerator(); keyDownFeedback(makeButton, "gold") };
         if (event.key === 'c') { copyToClipboard(passwordAsString); keyDownFeedback(clipButton, "gold") };
         if (event.key === "y") {
@@ -123,8 +113,8 @@ export default function RandomPassword(props) {
       return () => {
         document.removeEventListener('keydown', handleKeyPress)
       }
-    }, [passwordAsString]);
-  }
+    }
+  }, [passwordAsString]);
 
   // Functions for the generator button
   const handleGeneratorClick = () => {
@@ -149,7 +139,6 @@ export default function RandomPassword(props) {
           {/* The MUI Slider Component breaks if I put it in its own component. */}
           {!isDropdownNeeded ?
             <div id="dropdown">
-            <Shortcuts />
               <div className="slider">
                 Character Count ↓
                 <Slider
@@ -190,10 +179,10 @@ export default function RandomPassword(props) {
                   />
                 </div>
                 <div id="modSwitchContainer">
-                <ModificationSwitch name="toggle_number" title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
-                <ModificationSwitch name="toggle_symbol" title={"Use Symbols"} setState={setUseSymbols} state={useSymbols} />
-                <ModificationSwitch name="toggle_case" title={"Use Mixed Case"} setState={setUseMixedCase} state={useMixedCase} />
-                <ModificationSwitch name="toggle_color" title={"Colorize Result"} setState={setUseColor} state={useColor} />
+                  <ModificationSwitch name="toggle_number" title={"Use Numbers"} setState={setUseNumbers} state={useNumbers} />
+                  <ModificationSwitch name="toggle_symbol" title={"Use Symbols"} setState={setUseSymbols} state={useSymbols} />
+                  <ModificationSwitch name="toggle_case" title={"Use Mixed Case"} setState={setUseMixedCase} state={useMixedCase} />
+                  <ModificationSwitch name="toggle_color" title={"Colorize Result"} setState={setUseColor} state={useColor} />
                 </div>
               </div> : ""}
           {/* Glorious End of atrocious ternary */}
