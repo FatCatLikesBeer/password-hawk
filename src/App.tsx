@@ -76,7 +76,7 @@ function App() {
         <h2>Why You Can Trust Password Hawk</h2>
         <p>We never log or store any of the passwords generated.</p>
         <p>Even if we did log generated passwords, we have no idea who you are, or where you would use the results.</p>
-        <p>If you're technically inclined, you can verify these claims by checking the spaghetti code <a href="https://www.github.com/FatCatLikesBeer/password-hawk" target="_blank">GitHub</a>.</p>
+        <p>If you're technically inclined, you can verify these claims by checking the spaghetti code <a href="https://www.github.com/FatCatLikesBeer/password-hawk-backend" target="_blank">GitHub</a>.</p>
         <h2>What Makes a Good Password</h2>
         <p>The full story of password security is very complex and would require a lengthy conversation to get you caught up to speed. If you're intrested in that lengthy conversation, skip this section and check out the <i>Resources on Password Security</i> below. They are very indepth, so if you would like a shallow survey of what makes a good password in laymen's terms, go ahead and keep reading. </p>
         <p>The best way to know what makes a good password is to know what makes a password bad. There are two main ways you can have a bad password: using passwords that can be easily guessed by a machine; and using a password that hackers already have.</p>
